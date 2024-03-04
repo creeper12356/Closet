@@ -20,10 +20,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Clothes} from './models/Clothes.tsx';
 import Form from './components/AddClothesForm.tsx';
 import {AddClothesFormData} from './models/AddClothesFormData.tsx';
-import FilterClothesItemList from "./components/FilterClothesItemList.tsx";
-import BodySideClothesItemList from "./components/BodySideClothesItemList.tsx";
-import ClosetClothesItemList from "./components/ClosetClothesItemList.tsx";
-import LaundryClothesItemList from "./components/LaundryClothesItemList.tsx";
 import ClothesItemTabView from "./components/ClothesItemTabView.tsx";
 
 function App(): React.JSX.Element {

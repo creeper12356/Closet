@@ -1,4 +1,4 @@
-import { FlatList, Text } from "react-native";
+import { Button, FlatList, Text } from "react-native";
 import React from 'react';
 import {Clothes} from '../models/Clothes.tsx';
 import OnClothesItem from './OnClothesItem.tsx';
@@ -48,20 +48,28 @@ const FilterClothesItemList = ({
   onDelete: Function;
 }) => {
   return (
-    <FlatList
-      data={clothesList}
-      renderItem={({item}) => {
-        return renderItem({
-          item,
-          puton,
-          putoff,
-          wash,
-          store,
-          onDelete,
-          stateList,
-        });
-      }}
-    />
+    <>
+      <Button
+        title={clothesList
+          .filter(clothes => stateList.some(state => state === clothes.state))
+          .length.toString()}
+        color="grey"
+      />
+      <FlatList
+        data={clothesList}
+        renderItem={({item}) => {
+          return renderItem({
+            item,
+            puton,
+            putoff,
+            wash,
+            store,
+            onDelete,
+            stateList,
+          });
+        }}
+      />
+    </>
   );
 };
 export default FilterClothesItemList;

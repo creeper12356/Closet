@@ -1,9 +1,8 @@
-import { TabView } from "react-native-tab-view";
-import React from "react";
+import React from 'react';
 import BodySideClothesItemList from './BodySideClothesItemList.tsx';
 import { Clothes } from '../models/Clothes.tsx';
 import LaundryClothesItemList from './LaundryClothesItemList.tsx';
-import { Button, View } from "react-native";
+import { Button, View } from 'react-native';
 import ClosetClothesItemList from './ClosetClothesItemList.tsx';
 
 const ClothesItemTabView = ({
@@ -24,9 +23,10 @@ const ClothesItemTabView = ({
   const [index, setIndex] = React.useState(0);
   return (
     <>
-      <View style={{flexDirection: 'row', alignItems: 'stretch'}}>
+      <View style={{marginTop: 20, flexDirection: 'row', alignItems: 'stretch'}}>
         <Button
           title="BodySide"
+          disabled={index === 0}
           color="tomato"
           onPress={() => {
             setIndex(0);
@@ -34,6 +34,7 @@ const ClothesItemTabView = ({
         />
         <Button
           title="Laundry"
+          disabled={index === 1}
           color="steelblue"
           onPress={() => {
             setIndex(1);
@@ -41,6 +42,7 @@ const ClothesItemTabView = ({
         />
         <Button
           title="Store"
+          disabled={index === 2}
           color="grey"
           onPress={() => {
             setIndex(2);
