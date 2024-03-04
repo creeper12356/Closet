@@ -1,5 +1,5 @@
-import { Clothes } from "../objects/Clothes.tsx";
-import { Text, View } from "react-native";
+import {Clothes} from '../models/Clothes.tsx';
+import {Text, View} from 'react-native';
 
 const ClothesItemContent = ({
   clothes,
@@ -9,20 +9,16 @@ const ClothesItemContent = ({
   onDelete: Function;
 }) => {
   return (
-    <View style={{flexDirection:'row'}}>
+    <View style={{flexDirection: 'row'}}>
       <Text
-        style={{marginRight:20,fontSize:35}}
+        style={{marginRight: 20, fontSize: 35, color: 'rgb(100,0,0)'}}
         onPress={() => {
           onDelete(clothes.id);
-        }}
-      >
+        }}>
         ×
       </Text>
-      <View
-        style={{
-          marginRight: 20,
-        }}>
-        <Text style={{marginRight: 30}}>{clothes.name}</Text>
+      <View>
+        <Text>{clothes.name}</Text>
       </View>
     </View>
   );

@@ -1,5 +1,5 @@
-import {FlatList, Text} from 'react-native';
-import {Clothes} from '../objects/Clothes.tsx';
+import {FlatList} from 'react-native';
+import {Clothes} from '../models/Clothes.tsx';
 import React from 'react';
 import OnClothesItem from "./OnClothesItem.tsx";
 import OffClothesItem from "./OffClothesItem.tsx";

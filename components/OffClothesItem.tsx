@@ -1,4 +1,4 @@
-import { Clothes } from "../objects/Clothes.tsx";
+import { Clothes } from "../models/Clothes.tsx";
 import { Button, Text, TouchableOpacity, View } from "react-native";
 import ClothesItemContent from "./ClothesItemContent.tsx";
 const OffClothesItem = ({

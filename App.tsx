@@ -17,9 +17,10 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Clothes} from './objects/Clothes.tsx';
+import {Clothes} from './models/Clothes.tsx';
 import ClothesItemList from './components/ClothesItemList.tsx';
-import Form, { FormInterface } from "./components/Form.tsx";
+import Form from './components/AddClothesForm.tsx';
+import {AddClothesFormData} from './models/AddClothesFormData.tsx';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -58,18 +59,19 @@ function App(): React.JSX.Element {
       console.error(`saveClothes error: ${error}.`);
     }
   };
-  const setClothesState = (id: number, state: string) => {
-    setClothesList(
-      clothesList.map((clothes: Clothes) =>
-        clothes.id === id ? {...clothes, state: state} : clothes,
-      ),
-    );
-  };
+
   const puton = (id: number) => {
     setClothesList(
       clothesList.map((clothes: Clothes) =>
         clothes.id === id
-          ? {...clothes, state: 'On', lastTimeStamp: Date.now()}
+          ? clothes.state === 'Dry'
+            ? {
+                ...clothes,
+                firstPutOnTimeStamp: Date.now(),
+                state: 'On',
+                lastTimeStamp: Date.now(),
+              }
+            : {...clothes, state: 'On', lastTimeStamp: Date.now()}
           : clothes,
       ),
     );
@@ -108,14 +110,15 @@ function App(): React.JSX.Element {
   const deleteClothes = (id: number) => {
     setClothesList(clothesList.filter(clothes => clothes.id !== id));
   };
-  const createClothes = (data: FormInterface) => {
-    const newClothes : Clothes = {
+  const createClothes = (data: AddClothesFormData) => {
+    const newClothes: Clothes = {
       id: Date.now(),
       name: data.name,
-      onCycle: data.onCycle,
-      wetCycle: data.wetCycle,
       state: 'Dry',
+      onCycle: data.onCycle,
       onTime: 0,
+      firstPutOnTimeStamp: 0,
+      wetCycle: data.wetCycle,
       lastTimeStamp: 0,
     };
     setClothesList([...clothesList, newClothes]);
@@ -152,7 +155,7 @@ function App(): React.JSX.Element {
               onClose={() => {
                 setFormVisible(false);
               }}
-              onSubmit={(data: FormInterface) => {
+              onSubmit={(data: AddClothesFormData) => {
                 createClothes(data);
               }}
             />
