@@ -1,8 +1,7 @@
-import { Clothes } from "../models/Clothes.tsx";
-import { Text, TouchableOpacity, View } from "react-native";
-import ClothesItemContent from "./ClothesItemContent.tsx";
-import { Button } from "react-native-paper";
-import OperateButton from "./OperateButton.tsx";
+import { Clothes } from '../models/Clothes.tsx';
+import { Text, TouchableOpacity, View } from 'react-native';
+import ClothesItemContent from './ClothesItemContent.tsx';
+import OperateButton from './OperateButton.tsx';
 const OffClothesItem = ({
   clothes,
   puton,

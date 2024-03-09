@@ -1,4 +1,4 @@
-import { Button, FlatList, Text } from "react-native";
+import { FlatList, Text } from 'react-native';
 import React from 'react';
 import {Clothes} from '../models/Clothes.tsx';
 import OnClothesItem from './OnClothesItem.tsx';
@@ -49,12 +49,6 @@ const FilterClothesItemList = ({
 }) => {
   return (
     <>
-      <Button
-        title={clothesList
-          .filter(clothes => stateList.some(state => state === clothes.state))
-          .length.toString()}
-        color="grey"
-      />
       <FlatList
         data={clothesList}
         renderItem={({item}) => {

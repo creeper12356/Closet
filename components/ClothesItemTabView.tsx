@@ -1,9 +1,10 @@
 import React from 'react';
 import BodySideClothesItemList from './BodySideClothesItemList.tsx';
-import { Clothes } from '../models/Clothes.tsx';
+import {Clothes} from '../models/Clothes.tsx';
 import LaundryClothesItemList from './LaundryClothesItemList.tsx';
-import { Button, View } from 'react-native';
 import ClosetClothesItemList from './ClosetClothesItemList.tsx';
+import {Appbar} from 'react-native-paper';
+import TabButton from './TabButton.tsx';
 
 const ClothesItemTabView = ({
   clothesList,
@@ -23,32 +24,44 @@ const ClothesItemTabView = ({
   const [index, setIndex] = React.useState(0);
   return (
     <>
-      <View style={{marginTop: 20, flexDirection: 'row', alignItems: 'stretch'}}>
-        <Button
-          title="BodySide"
-          disabled={index === 0}
-          color="tomato"
+      <Appbar>
+        <TabButton
+          text={`Body Side(${
+            clothesList.filter(
+              (clothes: Clothes) =>
+                clothes.state === 'On' || clothes.state === 'Off',
+            ).length
+          })`}
           onPress={() => {
             setIndex(0);
           }}
+          isSelected={index === 0}
         />
-        <Button
-          title="Laundry"
-          disabled={index === 1}
-          color="steelblue"
+        <TabButton
+          text={`Laundry(${
+            clothesList.filter(
+              (clothes: Clothes) =>
+                clothes.state === 'Wet',
+            ).length
+          })`}
           onPress={() => {
             setIndex(1);
           }}
+          isSelected={index === 1}
         />
-        <Button
-          title="Store"
-          disabled={index === 2}
-          color="grey"
+        <TabButton
+          text={`Closet(${
+            clothesList.filter(
+              (clothes: Clothes) =>
+                clothes.state === 'Dry',
+            ).length
+          })`}
           onPress={() => {
             setIndex(2);
           }}
+          isSelected={index === 2}
         />
-      </View>
+      </Appbar>
       {index === 0 ? (
         <BodySideClothesItemList
           clothesList={clothesList}
