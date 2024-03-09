@@ -1,6 +1,7 @@
-import { Clothes } from "../models/Clothes.tsx";
-import { Button, Text, TouchableOpacity } from "react-native";
-import ClothesItemContent from "./ClothesItemContent.tsx";
+import { Clothes } from '../models/Clothes.tsx';
+import { TouchableOpacity } from 'react-native';
+import ClothesItemContent from './ClothesItemContent.tsx';
+import OperateButton from './OperateButton.tsx';
 const DryClothesItem = ({
   clothes,
   puton,
@@ -20,12 +21,7 @@ const DryClothesItem = ({
       }}
     >
       <ClothesItemContent clothes={clothes} onDelete={onDelete}/>
-      <Button
-        title="puton"
-        onPress={() => {
-          puton(clothes.id);
-        }}
-      />
+      <OperateButton type="puton" onPress={puton} clothesId={clothes.id} />
     </TouchableOpacity>
   );
 };

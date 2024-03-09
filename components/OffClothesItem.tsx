@@ -1,6 +1,8 @@
 import { Clothes } from "../models/Clothes.tsx";
-import { Button, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import ClothesItemContent from "./ClothesItemContent.tsx";
+import { Button } from "react-native-paper";
+import OperateButton from "./OperateButton.tsx";
 const OffClothesItem = ({
   clothes,
   puton,
@@ -22,18 +24,8 @@ const OffClothesItem = ({
       }}
     >
       <ClothesItemContent clothes={clothes} onDelete={onDelete}/>
-      <Button
-        title="puton"
-        onPress={() => {
-          puton(clothes.id);
-        }}
-      />
-      <Button
-        title="wash"
-        onPress={() => {
-          wash(clothes.id);
-        }}
-      />
+      <OperateButton type="puton" onPress={puton} clothesId={clothes.id} />
+      <OperateButton type="wash" onPress={wash} clothesId={clothes.id} />
       <View>
         <Text>{`On for ${Math.round(clothes.onTime / 3600000)} h`}</Text>
         <Text>{new Date(clothes.lastTimeStamp).toString()}</Text>
