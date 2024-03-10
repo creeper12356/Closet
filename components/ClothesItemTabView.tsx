@@ -27,7 +27,11 @@ const ClothesItemTabView = ({
   const [index, setIndex] = React.useState(0);
   return (
     <>
-      <Appbar>
+      <Appbar
+        style={{display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start'
+        }}>
         <TabButton
           text={`Body Side(${
             clothesList.filter(

@@ -16,7 +16,7 @@ const TabButton = ({
       buttonColor={isSelected ? 'black' : 'steelblue'}
       onPress={onPress}
       textColor="white"
-      style={{borderRadius: 2}}
+      style={{borderRadius: 2,}}
     >
       {text}
     </Button>
