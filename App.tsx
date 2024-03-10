@@ -109,6 +109,16 @@ function App(): React.JSX.Element {
       ),
     );
   };
+  const drop = (id: number) => {
+    setClothesList(
+      clothesList.map((clothes: Clothes) =>
+        clothes.id === id
+          ? {...clothes, state: 'Dirty' }
+          : clothes,
+      ),
+    );
+  };
+
   const deleteClothes = (id: number) => {
     setClothesList(clothesList.filter(clothes => clothes.id !== id));
   };
@@ -177,7 +187,9 @@ function App(): React.JSX.Element {
             putoff={putoff}
             wash={wash}
             store={store}
-            onDelete={deleteClothes} />
+            drop={drop}
+            onDelete={deleteClothes}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -5,6 +5,7 @@ import LaundryClothesItemList from './LaundryClothesItemList.tsx';
 import ClosetClothesItemList from './ClosetClothesItemList.tsx';
 import {Appbar} from 'react-native-paper';
 import TabButton from './TabButton.tsx';
+import HamperClothesItemList from './HamperClothesItemList.tsx';
 
 const ClothesItemTabView = ({
   clothesList,
@@ -12,6 +13,7 @@ const ClothesItemTabView = ({
   putoff,
   wash,
   store,
+  drop,
   onDelete,
 }: {
   clothesList: Clothes[];
@@ -19,6 +21,7 @@ const ClothesItemTabView = ({
   putoff: Function;
   wash: Function;
   store: Function;
+  drop: Function;
   onDelete: Function;
 }) => {
   const [index, setIndex] = React.useState(0);
@@ -61,6 +64,18 @@ const ClothesItemTabView = ({
           }}
           isSelected={index === 2}
         />
+        <TabButton
+          text={`Hamper(${
+            clothesList.filter(
+              (clothes: Clothes) =>
+                clothes.state === 'Dirty',
+            ).length
+          })`}
+          onPress={() => {
+            setIndex(3);
+          }}
+          isSelected={index === 3}
+        />
       </Appbar>
       {index === 0 ? (
         <BodySideClothesItemList
@@ -68,6 +83,7 @@ const ClothesItemTabView = ({
           puton={puton}
           putoff={putoff}
           wash={wash}
+          drop={drop}
           onDelete={onDelete}
         />
       ) : index === 1 ? (
@@ -76,10 +92,16 @@ const ClothesItemTabView = ({
           store={store}
           onDelete={onDelete}
         />
-      ) : (
+      ) : index === 2 ? (
         <ClosetClothesItemList
           clothesList={clothesList}
           puton={puton}
+          onDelete={onDelete}
+        />
+      ) : (
+        <HamperClothesItemList
+          clothesList={clothesList}
+          wash={wash}
           onDelete={onDelete}
         />
       )}

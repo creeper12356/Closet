@@ -8,11 +8,13 @@ const OnClothesItem = ({
   clothes,
   putoff,
   wash,
+  drop,
   onDelete,
 }: {
   clothes: Clothes;
   putoff: Function;
   wash: Function;
+  drop: Function;
   onDelete: Function;
 }) => {
   return (
@@ -26,6 +28,7 @@ const OnClothesItem = ({
       <ClothesItemContent clothes={clothes} onDelete={onDelete} />
       <OperateButton type="putoff" onPress={putoff} clothesId={clothes.id} />
       <OperateButton type="wash" onPress={wash} clothesId={clothes.id} />
+      <OperateButton type="drop" onPress={drop} clothesId={clothes.id} />
       <View>
         <Text>{`On for ${Math.round(clothes.onTime / 3600000)} h`}</Text>
         <Text>{new Date(clothes.lastTimeStamp).toString()}</Text>

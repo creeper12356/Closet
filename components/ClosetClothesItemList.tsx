@@ -18,6 +18,7 @@ const ClosetClothesItemList = ({
       putoff={() => {}}
       wash={() => {}}
       store={() => {}}
+      drop={() => {}}
       onDelete={onDelete}
     />
   );

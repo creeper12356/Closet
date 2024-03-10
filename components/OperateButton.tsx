@@ -13,7 +13,7 @@ const OperateButton = ({
   onPress,
   clothesId,
 }: {
-  type: 'puton' | 'putoff' | 'wash' | 'store';
+  type: 'puton' | 'putoff' | 'wash' | 'store' | 'drop';
   onPress: (id: number) => void;
   clothesId: number;
 }) => {

@@ -6,12 +6,14 @@ const BodySideClothesItemList = ({
   puton,
   putoff,
   wash,
+  drop,
   onDelete,
 }: {
   clothesList: Clothes[];
   puton: Function;
   putoff: Function;
   wash: Function;
+  drop: Function;
   onDelete: Function;
 }) => {
   return (
@@ -22,6 +24,7 @@ const BodySideClothesItemList = ({
       putoff={putoff}
       wash={wash}
       store={() => {}}
+      drop={drop}
       onDelete={onDelete}
     />
   );
