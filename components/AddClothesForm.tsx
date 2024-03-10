@@ -23,7 +23,11 @@ const AddClothesForm = ({
   };
 
   return (
-    <Modal visible={isVisible} animationType="slide" transparent={true}>
+    <Modal
+      onShow={() => {
+        setFormData({name: '衣服', onCycle: 0, wetCycle: 0});
+      }}
+      visible={isVisible} animationType="slide" transparent={true}>
       <View
         style={{
           flex: 1,
