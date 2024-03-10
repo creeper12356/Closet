@@ -29,10 +29,9 @@ const OnClothesItem = ({
       <OperateButton type="putoff" onPress={putoff} clothesId={clothes.id} />
       <OperateButton type="wash" onPress={wash} clothesId={clothes.id} />
       <OperateButton type="drop" onPress={drop} clothesId={clothes.id} />
-      <View>
-        <Text>{`On for ${Math.round(clothes.onTime / 3600000)} h`}</Text>
-        <Text>{new Date(clothes.lastTimeStamp).toString()}</Text>
-      </View>
+      <Text style={{textAlignVertical: 'center'}}>
+        {`On for ${Math.round(clothes.onTime / 3600000)} h`}
+      </Text>
     </TouchableOpacity>
   );
 };

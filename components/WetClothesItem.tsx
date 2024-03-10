@@ -23,7 +23,11 @@ const WetClothesItem = ({
     >
       <ClothesItemContent clothes={clothes} onDelete={onDelete}/>
       <OperateButton type="store" onPress={store} clothesId={clothes.id} />
-      <Text>{`Washed on ${new Date(
+      <Text
+        style={{
+          textAlignVertical: 'center',
+      }}>
+        {`Washed on ${new Date(
         clothes.lastTimeStamp,
       ).toDateString()}`}</Text>
     </TouchableOpacity>

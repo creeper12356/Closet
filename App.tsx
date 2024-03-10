@@ -18,11 +18,9 @@ import { Button } from "react-native-paper";
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Clothes} from './models/Clothes.tsx';
-import Form from './components/AddClothesForm.tsx';
 import {AddClothesFormData} from './models/AddClothesFormData.tsx';
-import ClothesItemTabView from "./components/ClothesItemTabView.tsx";
-import { Dialog, Portal } from "react-native-paper";
-import AddClothesForm from "./components/AddClothesForm.tsx";
+import ClothesItemTabView from './components/ClothesItemTabView.tsx';
+import AddClothesForm from './components/AddClothesForm.tsx';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -113,7 +111,7 @@ function App(): React.JSX.Element {
     setClothesList(
       clothesList.map((clothes: Clothes) =>
         clothes.id === id
-          ? {...clothes, state: 'Dirty' }
+          ? {...clothes, state: 'Dirty', lastTimeStamp: Date.now() }
           : clothes,
       ),
     );

@@ -1,5 +1,5 @@
 import { Clothes } from '../models/Clothes.tsx';
-import { TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from "react-native";
 import ClothesItemContent from './ClothesItemContent.tsx';
 import OperateButton from './OperateButton.tsx';
 const DirtyClothesItem = ({
@@ -22,6 +22,13 @@ const DirtyClothesItem = ({
     >
       <ClothesItemContent clothes={clothes} onDelete={onDelete}/>
       <OperateButton type="wash" onPress={wash} clothesId={clothes.id} />
+      <Text
+        style={{
+          textAlignVertical: 'center',
+        }}>
+        {`Droped on ${new Date(
+          clothes.lastTimeStamp,
+        ).toDateString()}`}</Text>
     </TouchableOpacity>
   );
 };
