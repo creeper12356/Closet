@@ -1,7 +1,8 @@
 import { Clothes } from "../models/Clothes.tsx";
-import { Button, Text, TouchableOpacity } from "react-native";
+import { Button, Text, TouchableOpacity, View } from "react-native";
 import ClothesItemContent from "./ClothesItemContent.tsx";
 import OperateButton from "./OperateButton.tsx";
+import React from "react";
 const WetClothesItem = ({
   clothes,
   store,
@@ -18,11 +19,19 @@ const WetClothesItem = ({
         backgroundColor: 'steelblue',
         borderColor: 'white',
         borderBottomWidth: 1,
-        flexDirection: 'row',
+        flexDirection: 'column',
       }}
     >
       <ClothesItemContent clothes={clothes} onDelete={onDelete}/>
-      <OperateButton type="store" onPress={store} clothesId={clothes.id} />
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <OperateButton type="store" onPress={store} clothesId={clothes.id} />
+      </View>
       <Text
         style={{
           textAlignVertical: 'center',

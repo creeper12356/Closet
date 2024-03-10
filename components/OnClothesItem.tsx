@@ -23,12 +23,20 @@ const OnClothesItem = ({
         backgroundColor: 'tomato',
         borderColor: 'white',
         borderBottomWidth: 1,
-        flexDirection: 'row',
+        flexDirection: 'column',
       }}>
       <ClothesItemContent clothes={clothes} onDelete={onDelete} />
-      <OperateButton type="putoff" onPress={putoff} clothesId={clothes.id} />
-      <OperateButton type="wash" onPress={wash} clothesId={clothes.id} />
-      <OperateButton type="drop" onPress={drop} clothesId={clothes.id} />
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <OperateButton type="putoff" onPress={putoff} clothesId={clothes.id} />
+        <OperateButton type="wash" onPress={wash} clothesId={clothes.id} />
+        <OperateButton type="drop" onPress={drop} clothesId={clothes.id} />
+      </View>
       <Text style={{textAlignVertical: 'center'}}>
         {`On for ${Math.round(clothes.onTime / 3600000)} h`}
       </Text>
