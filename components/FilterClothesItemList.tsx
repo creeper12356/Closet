@@ -1,4 +1,3 @@
-import { FlatList, Text } from 'react-native';
 import React from 'react';
 import {Clothes} from '../models/Clothes.tsx';
 import OnClothesItem from './OnClothesItem.tsx';
@@ -6,8 +5,8 @@ import OffClothesItem from './OffClothesItem.tsx';
 import WetClothesItem from './WetClothesItem.tsx';
 import DryClothesItem from './DryClothesItem.tsx';
 import DirtyClothesItem from './DirtyClothesItem.tsx';
-const renderItem = ({
-  item,
+const FilterClothesItem = ({
+  clothes,
   puton,
   putoff,
   wash,
@@ -16,7 +15,7 @@ const renderItem = ({
   onDelete,
   stateList,
 }: {
-  item: Clothes;
+  clothes: Clothes;
   puton: Function;
   putoff: Function;
   wash: Function;
@@ -25,12 +24,12 @@ const renderItem = ({
   onDelete: Function;
   stateList: string[];
 }) => {
-  return stateList.some(state => state === item.state) ? (
-      item.state === 'On' ? (<OnClothesItem clothes={item} putoff={putoff} wash={wash} drop={drop} onDelete={onDelete}/>)
-        : item.state === 'Off' ? (<OffClothesItem clothes={item} puton={puton} wash={wash} drop={drop} onDelete={onDelete}/>)
-        : item.state === 'Wet' ? (<WetClothesItem clothes={item} store={store} onDelete={onDelete}/>)
-        : item.state === 'Dry' ? (<DryClothesItem clothes={item} puton={puton} onDelete={onDelete}/>)
-            :(<DirtyClothesItem clothes={item} wash={wash} onDelete={onDelete} />))
+  return stateList.some(state => state === clothes.state) ? (
+      clothes.state === 'On' ? (<OnClothesItem clothes={clothes} putoff={putoff} wash={wash} drop={drop} onDelete={onDelete}/>)
+        : clothes.state === 'Off' ? (<OffClothesItem clothes={clothes} puton={puton} wash={wash} drop={drop} onDelete={onDelete}/>)
+        : clothes.state === 'Wet' ? (<WetClothesItem clothes={clothes} store={store} onDelete={onDelete}/>)
+        : clothes.state === 'Dry' ? (<DryClothesItem clothes={clothes} puton={puton} onDelete={onDelete}/>)
+            :(<DirtyClothesItem clothes={clothes} wash={wash} onDelete={onDelete} />))
     : (<></>);
 };
 const FilterClothesItemList = ({
@@ -54,22 +53,20 @@ const FilterClothesItemList = ({
 }) => {
   return (
     <>
-      <FlatList
-        data={clothesList}
-        renderItem={({item}) => {
-          return renderItem({
-            item,
-            puton,
-            putoff,
-            wash,
-            store,
-            drop,
-            onDelete,
-            stateList,
-          });
-        }}
-      />
+      {
+        clothesList.map((clothes: Clothes) =>
+          <FilterClothesItem
+            clothes={clothes}
+            puton={puton}
+            putoff={putoff}
+            wash={wash}
+            store={store}
+            drop={drop}
+            onDelete={onDelete}
+            stateList={stateList}
+          />)
+      }
     </>
-  );
+  )
 };
 export default FilterClothesItemList;

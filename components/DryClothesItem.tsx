@@ -2,7 +2,7 @@ import { Clothes } from '../models/Clothes.tsx';
 import { TouchableOpacity, View } from "react-native";
 import ClothesItemContent from './ClothesItemContent.tsx';
 import OperateButton from './OperateButton.tsx';
-import React from "react";
+import React from 'react';
 const DryClothesItem = ({
   clothes,
   puton,
