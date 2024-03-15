@@ -37,8 +37,17 @@ const OffClothesItem = ({
         <OperateButton type="wash" onPress={wash} clothesId={clothes.id} />
         <OperateButton type="drop" onPress={drop} clothesId={clothes.id} />
       </View>
-      <Text style={{textAlignVertical: 'center'}}>
+      <Text style={{
+          textAlignVertical: 'center',
+        }}>
         {`On for ${Math.round(clothes.onTime / 3600000)} h`}
+      </Text>
+      <Text style={{
+          textAlignVertical: 'center',
+        }}>
+        {`Last put on at ${new Date(
+          clothes.lastTimeStamp,
+        ).toLocaleTimeString()}`}
       </Text>
     </TouchableOpacity>
 

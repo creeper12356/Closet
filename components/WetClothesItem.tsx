@@ -36,9 +36,9 @@ const WetClothesItem = ({
         style={{
           textAlignVertical: 'center',
       }}>
-        {`Washed on ${new Date(
+        {`Washed at ${new Date(
         clothes.lastTimeStamp,
-      ).toDateString()}`}</Text>
+      ).toLocaleTimeString()}`}</Text>
     </TouchableOpacity>
   );
 };
