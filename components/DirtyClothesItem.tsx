@@ -35,9 +35,10 @@ const DirtyClothesItem = ({
         style={{
           textAlignVertical: 'center',
         }}>
-        {`Droped at ${new Date(
-          clothes.lastTimeStamp,
-        ).toLocaleTimeString()}`}</Text>
+        {`Droped at 
+        ${new Date(clothes.lastTimeStamp).toLocaleDateString()} 
+        ${new Date(clothes.lastTimeStamp).toLocaleTimeString()}`}
+      </Text>
     </TouchableOpacity>
   );
 };

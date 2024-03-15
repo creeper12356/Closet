@@ -41,9 +41,9 @@ const OnClothesItem = ({
         {`On for ${Math.round(clothes.onTime / 3600000)} h`}
       </Text>
       <Text>
-        {`Last put on at ${new Date(
-          clothes.lastTimeStamp,
-        ).toLocaleTimeString()}`}
+        {`Last put on at 
+        ${new Date(clothes.lastTimeStamp).toLocaleDateString()} 
+        ${new Date(clothes.lastTimeStamp).toLocaleTimeString()}`}
       </Text>
     </TouchableOpacity>
   );

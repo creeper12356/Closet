@@ -45,9 +45,9 @@ const OffClothesItem = ({
       <Text style={{
           textAlignVertical: 'center',
         }}>
-        {`Last put on at ${new Date(
-          clothes.lastTimeStamp,
-        ).toLocaleTimeString()}`}
+        {`Last put on at 
+        ${new Date(clothes.lastTimeStamp).toLocaleDateString()} 
+        ${new Date(clothes.lastTimeStamp).toLocaleTimeString()}`}
       </Text>
     </TouchableOpacity>
 
