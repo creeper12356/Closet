@@ -136,60 +136,57 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
+      <View
+        style={{
+          backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        }}>
         <View
           style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+            marginVertical: 20,
           }}>
-          <View style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-evenly',
-              marginVertical: 20,
-          }}>
-            <Button
-              buttonColor="green"
-              textColor="white"
-              onPress={() => {
-                setFormVisible(true);
-              }}>
-              Add Clothes
-            </Button>
-            <Text>{`Total: ${clothesList.length}`}</Text>
-            <Button
-              buttonColor="red"
-              textColor="white"
-              onPress={() => {
-                AsyncStorage.removeItem('clothes');
-                setClothesList([]);
-              }}>
-              Clear Clothes
-            </Button>
-          </View>
-
-          <AddClothesForm
-            isVisible={isFormVisible}
-            onClose={() => {
-              setFormVisible(false);
-            }}
-            onSubmit={(data: AddClothesFormData) => {
-              createClothes(data);
-            }}
-          />
-          <ClothesItemTabView
-            clothesList={clothesList}
-            puton={puton}
-            putoff={putoff}
-            wash={wash}
-            store={store}
-            drop={drop}
-            onDelete={deleteClothes}
-          />
+          <Button
+            buttonColor="green"
+            textColor="white"
+            onPress={() => {
+              setFormVisible(true);
+            }}>
+            Add Clothes
+          </Button>
+          <Text>{`Total: ${clothesList.length}`}</Text>
+          <Button
+            buttonColor="red"
+            textColor="white"
+            onPress={() => {
+              AsyncStorage.removeItem('clothes');
+              setClothesList([]);
+            }}>
+            Clear Clothes
+          </Button>
         </View>
-      </ScrollView>
+
+        <AddClothesForm
+          isVisible={isFormVisible}
+          onClose={() => {
+            setFormVisible(false);
+          }}
+          onSubmit={(data: AddClothesFormData) => {
+            createClothes(data);
+          }}
+        />
+        <ClothesItemTabView
+          clothesList={clothesList}
+          puton={puton}
+          putoff={putoff}
+          wash={wash}
+          store={store}
+          drop={drop}
+          onDelete={deleteClothes}
+        />
+      </View>
     </SafeAreaView>
   );
 }

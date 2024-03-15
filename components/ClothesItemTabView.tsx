@@ -6,6 +6,7 @@ import ClosetClothesItemList from './ClosetClothesItemList.tsx';
 import {Appbar} from 'react-native-paper';
 import TabButton from './TabButton.tsx';
 import HamperClothesItemList from './HamperClothesItemList.tsx';
+import { ScrollView } from "react-native";
 
 const ClothesItemTabView = ({
   clothesList,
@@ -28,9 +29,10 @@ const ClothesItemTabView = ({
   return (
     <>
       <Appbar
-        style={{display: 'flex',
+        style={{
+          display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'flex-start'
+          justifyContent: 'space-evenly',
         }}>
         <TabButton
           text={`Body Side(${
@@ -81,34 +83,36 @@ const ClothesItemTabView = ({
           isSelected={index === 3}
         />
       </Appbar>
-      {index === 0 ? (
-        <BodySideClothesItemList
-          clothesList={clothesList}
-          puton={puton}
-          putoff={putoff}
-          wash={wash}
-          drop={drop}
-          onDelete={onDelete}
-        />
-      ) : index === 1 ? (
-        <LaundryClothesItemList
-          clothesList={clothesList}
-          store={store}
-          onDelete={onDelete}
-        />
-      ) : index === 2 ? (
-        <ClosetClothesItemList
-          clothesList={clothesList}
-          puton={puton}
-          onDelete={onDelete}
-        />
-      ) : (
-        <HamperClothesItemList
-          clothesList={clothesList}
-          wash={wash}
-          onDelete={onDelete}
-        />
-      )}
+      <ScrollView style={{ height: '80%' }}>
+        {index === 0 ? (
+          <BodySideClothesItemList
+            clothesList={clothesList}
+            puton={puton}
+            putoff={putoff}
+            wash={wash}
+            drop={drop}
+            onDelete={onDelete}
+          />
+        ) : index === 1 ? (
+          <LaundryClothesItemList
+            clothesList={clothesList}
+            store={store}
+            onDelete={onDelete}
+          />
+        ) : index === 2 ? (
+          <ClosetClothesItemList
+            clothesList={clothesList}
+            puton={puton}
+            onDelete={onDelete}
+          />
+        ) : (
+          <HamperClothesItemList
+            clothesList={clothesList}
+            wash={wash}
+            onDelete={onDelete}
+          />
+        )}
+      </ScrollView>
     </>
   );
 };
