@@ -4,6 +4,7 @@ import ClothesItemContent from './ClothesItemContent.tsx';
 import React from 'react';
 import OperateButton from './OperateButton.tsx';
 import ClothesItemContainer from './ClothesItemContainer.tsx';
+import { ProgressBar } from "react-native-paper";
 const OnClothesItem = ({
   clothes,
   putoff,
@@ -45,6 +46,17 @@ const OnClothesItem = ({
         ${new Date(clothes.lastTimeStamp).toLocaleDateString()} 
         ${new Date(clothes.lastTimeStamp).toLocaleTimeString()}`}
       </Text>
+      {clothes.onCycle !== 0 && (
+        <ProgressBar
+          color={clothes.onTime < clothes.onCycle ? 'green' : 'red'}
+          style={{height: 5}}
+          animatedValue={
+            clothes.onTime < clothes.onCycle
+              ? clothes.onTime / clothes.onCycle
+              : 1
+          }
+        />
+      )}
     </ClothesItemContainer>
   );
 };
