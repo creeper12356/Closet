@@ -21,6 +21,7 @@ import {Clothes} from './models/Clothes.tsx';
 import {AddClothesFormData} from './models/AddClothesFormData.tsx';
 import ClothesItemTabView from './components/ClothesItemTabView.tsx';
 import AddClothesForm from './components/AddClothesForm.tsx';
+import EditClothesForm from "./components/EditClothesForm.tsx";
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -30,8 +31,9 @@ function App(): React.JSX.Element {
   };
 
   const [clothesList, setClothesList] = useState<Clothes[]>([]);
-  const [isFormVisible , setFormVisible ] = useState(false);
-
+  const [isAddClothesFormVisible, setAddClothesFormVisible] = useState(false);
+  const [isEditClothesFormVisible, setEditClothesFormVisible] = useState(false);
+  const [editedClothesId, setEditedClothesId] = useState(0);
   useEffect(() => {
     console.log('restore');
     restoreClothes();
@@ -123,6 +125,8 @@ function App(): React.JSX.Element {
 
   const editClothes = (id: number) => {
     console.log(new Date(id).toLocaleDateString());
+    setEditedClothesId(id);
+    setEditClothesFormVisible(true);
   };
   const createClothes = (data: AddClothesFormData) => {
     const newClothes: Clothes = {
@@ -156,7 +160,7 @@ function App(): React.JSX.Element {
             buttonColor="green"
             textColor="white"
             onPress={() => {
-              setFormVisible(true);
+              setAddClothesFormVisible(true);
             }}>
             Add Clothes
           </Button>
@@ -173,12 +177,27 @@ function App(): React.JSX.Element {
         </View>
 
         <AddClothesForm
-          isVisible={isFormVisible}
+          isVisible={isAddClothesFormVisible}
           onClose={() => {
-            setFormVisible(false);
+            setAddClothesFormVisible(false);
           }}
           onSubmit={(data: AddClothesFormData) => {
             createClothes(data);
+          }}
+        />
+        <EditClothesForm
+          isVisible={isEditClothesFormVisible}
+          //@ts-ignore
+          clothes={clothesList.find(clothes => clothes.id === editedClothesId)}
+          onClose={() => {
+            setEditClothesFormVisible(false);
+          }}
+          onSubmit={editedClothes => {
+            setClothesList(
+              clothesList.map(clothes =>
+                clothes.id === editedClothes.id ? editedClothes : clothes,
+              ),
+            );
           }}
         />
         <ClothesItemTabView

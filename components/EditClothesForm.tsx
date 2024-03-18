@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Button, Modal, Text, TextInput, View } from 'react-native';
 import {AddClothesFormData} from '../models/AddClothesFormData.tsx';
+import { Clothes } from "../models/Clothes.tsx";
 
-const AddClothesForm = ({
+const EditClothesForm = ({
   isVisible,
+  clothes,
   onClose,
   onSubmit,
 }: {
   isVisible: boolean;
-  onClose: Function;
-  onSubmit: Function;
+  clothes: Clothes;
+  onClose: () => void;
+  onSubmit: (clothes: Clothes) => void;
 }) => {
   const [formData, setFormData] = useState<AddClothesFormData>({
     name: '衣服',
@@ -18,16 +21,27 @@ const AddClothesForm = ({
   });
 
   const handleSubmit = () => {
-    onSubmit(formData);
+    onSubmit({
+      ...clothes,
+      name: formData.name,
+      onCycle: formData.onCycle,
+      wetCycle: formData.wetCycle,
+    });
     onClose();
   };
 
   return (
     <Modal
       onShow={() => {
-        setFormData({name: '衣服', onCycle: 0, wetCycle: 0});
+        setFormData({
+          name: clothes.name,
+          onCycle: clothes.onCycle,
+          wetCycle: clothes.wetCycle,
+        });
       }}
-      visible={isVisible} animationType="slide" transparent={true}>
+      visible={isVisible}
+      animationType="slide"
+      transparent={true}>
       <View
         style={{
           flex: 1,
@@ -36,16 +50,16 @@ const AddClothesForm = ({
           backgroundColor: 'rgba(0,0,0,0.5)',
         }}>
         <View style={{backgroundColor: 'white', padding: 20, borderRadius: 10}}>
-          <Text>New Clothes</Text>
+          <Text>Edit Clothes</Text>
           <TextInput
             placeholder="Name"
-            defaultValue={'衣服'}
+            defaultValue={formData.name}
             onChangeText={text => setFormData({...formData, name: text})}
           />
           <TextInput
             placeholder="OnCycle"
             keyboardType="numeric"
-            defaultValue={'0'}
+            defaultValue={formData.onCycle.toString()}
             onChangeText={text => {
               let onCycle: number = Number(text);
               setFormData({...formData, onCycle: onCycle});
@@ -54,7 +68,7 @@ const AddClothesForm = ({
           <TextInput
             placeholder="WetCycle"
             keyboardType="numeric"
-            defaultValue={'0'}
+            defaultValue={formData.wetCycle.toString()}
             onChangeText={text => {
               let wetCycle: number = Number(text);
               setFormData({...formData, wetCycle: wetCycle});
@@ -76,4 +90,4 @@ const AddClothesForm = ({
   );
 };
 
-export default AddClothesForm;
+export default EditClothesForm;
