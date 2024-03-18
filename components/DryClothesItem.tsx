@@ -1,26 +1,26 @@
 import { Clothes } from '../models/Clothes.tsx';
-import { TouchableOpacity, View } from "react-native";
+import { GestureResponderEvent, View } from "react-native";
 import ClothesItemContent from './ClothesItemContent.tsx';
 import OperateButton from './OperateButton.tsx';
 import React from 'react';
+import ClothesItemContainer from './ClothesItemContainer.tsx';
 const DryClothesItem = ({
   clothes,
   puton,
   onDelete,
+  onLongPress,
 }: {
   clothes: Clothes;
   puton: Function;
   onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
   return (
-    <TouchableOpacity
-      style={{
-        backgroundColor: 'grey',
-        borderColor: 'white',
-        borderBottomWidth: 1,
-        flexDirection: 'column',
-      }}
-    >
+    <ClothesItemContainer
+      backgroundColor="grey"
+      onLongPress={() => {
+        onLongPress(clothes.id);
+      }}>
       <ClothesItemContent clothes={clothes} onDelete={onDelete}/>
       <View
         style={{
@@ -31,7 +31,7 @@ const DryClothesItem = ({
         }}>
         <OperateButton type="puton" onPress={puton} clothesId={clothes.id} />
       </View>
-    </TouchableOpacity>
+    </ClothesItemContainer>
   );
 };
 export default DryClothesItem;

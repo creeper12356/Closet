@@ -1,27 +1,27 @@
 import { Clothes } from "../models/Clothes.tsx";
-import { Button, Text, TouchableOpacity, View } from "react-native";
+import { GestureResponderEvent, Text, View } from "react-native";
 import ClothesItemContent from "./ClothesItemContent.tsx";
 import OperateButton from "./OperateButton.tsx";
 import React from "react";
+import ClothesItemContainer from "./ClothesItemContainer.tsx";
 const WetClothesItem = ({
   clothes,
   store,
   onDelete,
+  onLongPress,
 }: {
   clothes: Clothes;
   store: Function;
   onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
   // @ts-ignore
   return (
-    <TouchableOpacity
-      style={{
-        backgroundColor: 'steelblue',
-        borderColor: 'white',
-        borderBottomWidth: 1,
-        flexDirection: 'column',
-      }}
-    >
+    <ClothesItemContainer
+      backgroundColor="steelblue"
+      onLongPress={() => {
+        onLongPress(clothes.id);
+      }}>
       <ClothesItemContent clothes={clothes} onDelete={onDelete}/>
       <View
         style={{
@@ -40,7 +40,7 @@ const WetClothesItem = ({
         ${new Date(clothes.lastTimeStamp).toLocaleDateString()} 
         ${new Date(clothes.lastTimeStamp).toLocaleTimeString()}`}
       </Text>
-    </TouchableOpacity>
+    </ClothesItemContainer>
   );
 };
 export default WetClothesItem;

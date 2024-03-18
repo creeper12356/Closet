@@ -120,6 +120,10 @@ function App(): React.JSX.Element {
   const deleteClothes = (id: number) => {
     setClothesList(clothesList.filter(clothes => clothes.id !== id));
   };
+
+  const editClothes = (id: number) => {
+    console.log(new Date(id).toLocaleDateString());
+  };
   const createClothes = (data: AddClothesFormData) => {
     const newClothes: Clothes = {
       id: Date.now(),
@@ -185,6 +189,7 @@ function App(): React.JSX.Element {
           store={store}
           drop={drop}
           onDelete={deleteClothes}
+          onLongPress={editClothes}
         />
       </View>
     </SafeAreaView>

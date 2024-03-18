@@ -1,29 +1,29 @@
 import {Clothes} from '../models/Clothes.tsx';
-import {Text, TouchableOpacity, View} from 'react-native';
-import {Button} from 'react-native-paper';
+import { GestureResponderEvent, Text, View } from "react-native";
 import ClothesItemContent from './ClothesItemContent.tsx';
 import React from 'react';
-import OperateButton from "./OperateButton.tsx";
+import OperateButton from './OperateButton.tsx';
+import ClothesItemContainer from './ClothesItemContainer.tsx';
 const OnClothesItem = ({
   clothes,
   putoff,
   wash,
   drop,
   onDelete,
+  onLongPress,
 }: {
   clothes: Clothes;
   putoff: Function;
   wash: Function;
   drop: Function;
   onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
   return (
-    <TouchableOpacity
-      style={{
-        backgroundColor: 'tomato',
-        borderColor: 'white',
-        borderBottomWidth: 1,
-        flexDirection: 'column',
+    <ClothesItemContainer
+      backgroundColor="tomato"
+      onLongPress={() => {
+        onLongPress(clothes.id);
       }}>
       <ClothesItemContent clothes={clothes} onDelete={onDelete} />
       <View
@@ -45,7 +45,7 @@ const OnClothesItem = ({
         ${new Date(clothes.lastTimeStamp).toLocaleDateString()} 
         ${new Date(clothes.lastTimeStamp).toLocaleTimeString()}`}
       </Text>
-    </TouchableOpacity>
+    </ClothesItemContainer>
   );
 };
 export default OnClothesItem;

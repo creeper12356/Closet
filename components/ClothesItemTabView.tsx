@@ -6,7 +6,7 @@ import ClosetClothesItemList from './ClosetClothesItemList.tsx';
 import {Appbar} from 'react-native-paper';
 import TabButton from './TabButton.tsx';
 import HamperClothesItemList from './HamperClothesItemList.tsx';
-import { ScrollView } from "react-native";
+import { GestureResponderEvent, ScrollView } from "react-native";
 
 const ClothesItemTabView = ({
   clothesList,
@@ -16,6 +16,7 @@ const ClothesItemTabView = ({
   store,
   drop,
   onDelete,
+  onLongPress,
 }: {
   clothesList: Clothes[];
   puton: Function;
@@ -24,6 +25,7 @@ const ClothesItemTabView = ({
   store: Function;
   drop: Function;
   onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
   const [index, setIndex] = React.useState(0);
   return (
@@ -92,24 +94,28 @@ const ClothesItemTabView = ({
             wash={wash}
             drop={drop}
             onDelete={onDelete}
+            onLongPress={onLongPress}
           />
         ) : index === 1 ? (
           <LaundryClothesItemList
             clothesList={clothesList}
             store={store}
             onDelete={onDelete}
+            onLongPress={onLongPress}
           />
         ) : index === 2 ? (
           <ClosetClothesItemList
             clothesList={clothesList}
             puton={puton}
             onDelete={onDelete}
+            onLongPress={onLongPress}
           />
         ) : (
           <HamperClothesItemList
             clothesList={clothesList}
             wash={wash}
             onDelete={onDelete}
+            onLongPress={onLongPress}
           />
         )}
       </ScrollView>

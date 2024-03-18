@@ -1,27 +1,27 @@
 import { Clothes } from '../models/Clothes.tsx';
-import { Text, TouchableOpacity, View } from "react-native";
+import { GestureResponderEvent, Text, View } from "react-native";
 import ClothesItemContent from './ClothesItemContent.tsx';
 import OperateButton from './OperateButton.tsx';
-import React from "react";
+import React from 'react';
+import ClothesItemContainer from './ClothesItemContainer.tsx';
 const DirtyClothesItem = ({
   clothes,
   wash,
   onDelete,
+  onLongPress,
 }: {
   clothes: Clothes;
   wash: Function;
   onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
   return (
-    <TouchableOpacity
-      style={{
-        backgroundColor: 'rgb(153, 102, 51)',
-        borderColor: 'white',
-        borderBottomWidth: 1,
-        flexDirection: 'column',
-      }}
-    >
-      <ClothesItemContent clothes={clothes} onDelete={onDelete}/>
+    <ClothesItemContainer
+      backgroundColor="rgb(153,102,51)"
+      onLongPress={() => {
+        onLongPress(clothes.id);
+      }}>
+      <ClothesItemContent clothes={clothes} onDelete={onDelete} />
       <View
         style={{
           display: 'flex',
@@ -39,7 +39,7 @@ const DirtyClothesItem = ({
         ${new Date(clothes.lastTimeStamp).toLocaleDateString()} 
         ${new Date(clothes.lastTimeStamp).toLocaleTimeString()}`}
       </Text>
-    </TouchableOpacity>
+    </ClothesItemContainer>
   );
 };
 export default DirtyClothesItem;

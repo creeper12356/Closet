@@ -1,14 +1,17 @@
 import {Clothes} from '../models/Clothes.tsx';
 import FilterClothesItemList from './FilterClothesItemList.tsx';
+import { GestureResponderEvent } from "react-native";
 
 const ClosetClothesItemList = ({
   clothesList,
   puton,
   onDelete,
+  onLongPress,
 }: {
   clothesList: Clothes[];
   puton: Function;
   onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
   return (
     <FilterClothesItemList
@@ -20,6 +23,7 @@ const ClosetClothesItemList = ({
       store={() => {}}
       drop={() => {}}
       onDelete={onDelete}
+      onLongPress={onLongPress}
     />
   );
 };

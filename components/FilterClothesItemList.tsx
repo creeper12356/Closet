@@ -5,6 +5,7 @@ import OffClothesItem from './OffClothesItem.tsx';
 import WetClothesItem from './WetClothesItem.tsx';
 import DryClothesItem from './DryClothesItem.tsx';
 import DirtyClothesItem from './DirtyClothesItem.tsx';
+import { GestureResponderEvent } from "react-native";
 const FilterClothesItem = ({
   clothes,
   puton,
@@ -13,6 +14,7 @@ const FilterClothesItem = ({
   store,
   drop,
   onDelete,
+  onLongPress,
   stateList,
 }: {
   clothes: Clothes;
@@ -22,14 +24,15 @@ const FilterClothesItem = ({
   store: Function;
   drop: Function;
   onDelete: Function;
+  onLongPress: (id: number) => void;
   stateList: string[];
 }) => {
   return stateList.some(state => state === clothes.state) ? (
-      clothes.state === 'On' ? (<OnClothesItem clothes={clothes} putoff={putoff} wash={wash} drop={drop} onDelete={onDelete}/>)
-        : clothes.state === 'Off' ? (<OffClothesItem clothes={clothes} puton={puton} wash={wash} drop={drop} onDelete={onDelete}/>)
-        : clothes.state === 'Wet' ? (<WetClothesItem clothes={clothes} store={store} onDelete={onDelete}/>)
-        : clothes.state === 'Dry' ? (<DryClothesItem clothes={clothes} puton={puton} onDelete={onDelete}/>)
-            :(<DirtyClothesItem clothes={clothes} wash={wash} onDelete={onDelete} />))
+      clothes.state === 'On' ? (<OnClothesItem clothes={clothes} putoff={putoff} wash={wash} drop={drop} onDelete={onDelete} onLongPress={onLongPress}/>)
+        : clothes.state === 'Off' ? (<OffClothesItem clothes={clothes} puton={puton} wash={wash} drop={drop} onDelete={onDelete} onLongPress={onLongPress}/>)
+        : clothes.state === 'Wet' ? (<WetClothesItem clothes={clothes} store={store} onDelete={onDelete} onLongPress={onLongPress}/>)
+        : clothes.state === 'Dry' ? (<DryClothesItem clothes={clothes} puton={puton} onDelete={onDelete} onLongPress={onLongPress}/>)
+            :(<DirtyClothesItem clothes={clothes} wash={wash} onDelete={onDelete} onLongPress={onLongPress}/>))
     : (<></>);
 };
 const FilterClothesItemList = ({
@@ -41,6 +44,7 @@ const FilterClothesItemList = ({
   store,
   drop,
   onDelete,
+  onLongPress,
 }: {
   clothesList: Clothes[];
   stateList: string[];
@@ -50,6 +54,7 @@ const FilterClothesItemList = ({
   store: Function;
   drop: Function;
   onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
   return (
     <>
@@ -63,6 +68,7 @@ const FilterClothesItemList = ({
             store={store}
             drop={drop}
             onDelete={onDelete}
+            onLongPress={onLongPress}
             stateList={stateList}
           />)
       }
