@@ -1,45 +1,55 @@
-import { Clothes } from "../models/Clothes.tsx";
-import { Button, Text, TouchableOpacity, View } from "react-native";
-import ClothesItemContent from "./ClothesItemContent.tsx";
+import {Clothes} from '../models/Clothes.tsx';
+import {Text, View} from 'react-native';
+import ClothesItemContent from './ClothesItemContent.tsx';
+import OperateButton from './OperateButton.tsx';
+import ClothesItemContainer from './ClothesItemContainer.tsx';
+import {ProgressBar} from 'react-native-paper';
+import React from 'react';
 const OnClothesItem = ({
   clothes,
-  putoff,
-  wash,
-  onDelete,
+  onLongPress,
 }: {
   clothes: Clothes;
-  putoff: Function;
-  wash: Function;
-  onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
   return (
-    <TouchableOpacity
-      style={{
-        backgroundColor: 'tomato',
-        borderColor: 'white',
-        borderBottomWidth: 1,
-        flexDirection: 'row',
-      }}
-    >
-      <ClothesItemContent clothes={clothes} onDelete={onDelete}/>
-      <Button
-        title="putoff"
-        onPress={() => {
-          putoff(clothes.id);
-        }}
-      />
-      <Button
-        title="wash"
-        onPress={() => {
-          wash(clothes.id);
-        }}
-      />
-      <View>
-        <Text>{`On for ${Math.round(clothes.onTime / 3600000)} h`}</Text>
-        <Text>{new Date(clothes.lastTimeStamp).toString()}</Text>
+    <ClothesItemContainer
+      backgroundColor="tomato"
+      onLongPress={() => {
+        onLongPress(clothes.id);
+      }}>
+      <ClothesItemContent clothes={clothes} />
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <OperateButton type="putoff" clothesId={clothes.id} />
+        <OperateButton type="wash" clothesId={clothes.id} />
+        <OperateButton type="drop" clothesId={clothes.id} />
       </View>
-
-    </TouchableOpacity>
+      <Text style={{textAlignVertical: 'center'}}>
+        {`On for ${Math.round(clothes.onTime / 3600000)} h`}
+      </Text>
+      <Text>
+        {`Last put on at 
+        ${new Date(clothes.lastTimeStamp).toLocaleDateString()} 
+        ${new Date(clothes.lastTimeStamp).toLocaleTimeString()}`}
+      </Text>
+      {clothes.onCycle !== 0 && (
+        <ProgressBar
+          color={clothes.onTime < clothes.onCycle ? 'green' : 'red'}
+          style={{height: 5}}
+          animatedValue={
+            clothes.onTime < clothes.onCycle
+              ? clothes.onTime / clothes.onCycle
+              : 1
+          }
+        />
+      )}
+    </ClothesItemContainer>
   );
 };
 export default OnClothesItem;

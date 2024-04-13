@@ -1,73 +1,86 @@
-import { TabView } from "react-native-tab-view";
-import React from "react";
+import React from 'react';
 import BodySideClothesItemList from './BodySideClothesItemList.tsx';
-import { Clothes } from '../models/Clothes.tsx';
+import {Clothes} from '../models/Clothes.tsx';
 import LaundryClothesItemList from './LaundryClothesItemList.tsx';
-import { Button, View } from "react-native";
 import ClosetClothesItemList from './ClosetClothesItemList.tsx';
+import {Appbar} from 'react-native-paper';
+import TabButton from './TabButton.tsx';
+import HamperClothesItemList from './HamperClothesItemList.tsx';
+import {ScrollView} from 'react-native';
 
 const ClothesItemTabView = ({
   clothesList,
-  puton,
-  putoff,
-  wash,
-  store,
-  onDelete,
+  onLongPress,
 }: {
   clothesList: Clothes[];
-  puton: Function;
-  putoff: Function;
-  wash: Function;
-  store: Function;
-  onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
   const [index, setIndex] = React.useState(0);
   return (
     <>
-      <View style={{flexDirection: 'row', alignItems: 'stretch'}}>
-        <Button
-          title="BodySide"
-          color="tomato"
+      <Appbar
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+        }}>
+        <TabButton
+          text={`Body Side(${
+            clothesList.filter(
+              (clothes: Clothes) =>
+                clothes.state === 'On' || clothes.state === 'Off',
+            ).length
+          })`}
           onPress={() => {
             setIndex(0);
           }}
+          isSelected={index === 0}
         />
-        <Button
-          title="Laundry"
-          color="steelblue"
+        <TabButton
+          text={`Laundry(${
+            clothesList.filter((clothes: Clothes) => clothes.state === 'Wet')
+              .length
+          })`}
           onPress={() => {
             setIndex(1);
           }}
+          isSelected={index === 1}
         />
-        <Button
-          title="Store"
-          color="grey"
+        <TabButton
+          text={`Closet(${
+            clothesList.filter((clothes: Clothes) => clothes.state === 'Dry')
+              .length
+          })`}
           onPress={() => {
             setIndex(2);
           }}
+          isSelected={index === 2}
         />
-      </View>
-      {index === 0 ? (
-        <BodySideClothesItemList
-          clothesList={clothesList}
-          puton={puton}
-          putoff={putoff}
-          wash={wash}
-          onDelete={onDelete}
+        <TabButton
+          text={`Hamper(${
+            clothesList.filter((clothes: Clothes) => clothes.state === 'Dirty')
+              .length
+          })`}
+          onPress={() => {
+            setIndex(3);
+          }}
+          isSelected={index === 3}
         />
-      ) : index === 1 ? (
-        <LaundryClothesItemList
-          clothesList={clothesList}
-          store={store}
-          onDelete={onDelete}
-        />
-      ) : (
-        <ClosetClothesItemList
-          clothesList={clothesList}
-          puton={puton}
-          onDelete={onDelete}
-        />
-      )}
+      </Appbar>
+      <ScrollView style={{height: '80%'}}>
+        {index === 0 ? (
+          <BodySideClothesItemList onLongPress={onLongPress} />
+        ) : index === 1 ? (
+          <LaundryClothesItemList onLongPress={onLongPress} />
+        ) : index === 2 ? (
+          <ClosetClothesItemList
+            clothesList={clothesList}
+            onLongPress={onLongPress}
+          />
+        ) : (
+          <HamperClothesItemList onLongPress={onLongPress} />
+        )}
+      </ScrollView>
     </>
   );
 };

@@ -10,11 +10,14 @@
     "test": "jest"
   },
   "dependencies": {
+    "@ant-design/react-native": "^5.1.1",
     "@react-native-async-storage/async-storage": "^1.22.3",
     "react": "18.2.0",
     "react-native": "0.73.5",
-    "react-native-tab-view": "^3.5.2",
-    "react-native-tabview": "^1.0.0"
+    "react-native-pager-view": "^6.2.3",
+    "react-native-paper": "^5.12.3",
+    "react-native-tab-navigator": "^0.3.4",
+    "react-native-tab-view": "^3.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -25,6 +28,7 @@
     "@react-native/metro-config": "0.73.5",
     "@react-native/typescript-config": "0.73.1",
     "@types/react": "^18.2.6",
+    "@types/react-native-tab-navigator": "^0.3.10",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
     "eslint": "^8.19.0",

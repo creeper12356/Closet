@@ -1,13 +1,13 @@
 import FilterClothesItemList from './FilterClothesItemList.tsx';
 import React from 'react';
 
-const LaundryClothesItemList = ({
+const HamperClothesItemList = ({
   onLongPress,
 }: {
   onLongPress: (id: number) => void;
 }) => {
   return (
-    <FilterClothesItemList stateList={['Wet']} onLongPress={onLongPress} />
+    <FilterClothesItemList stateList={['Dirty']} onLongPress={onLongPress} />
   );
 };
-export default LaundryClothesItemList;
+export default HamperClothesItemList;

@@ -1,25 +1,15 @@
 import {Clothes} from '../models/Clothes.tsx';
 import FilterClothesItemList from './FilterClothesItemList.tsx';
+import React from 'react';
 
 const ClosetClothesItemList = ({
-  clothesList,
-  puton,
-  onDelete,
+  onLongPress,
 }: {
   clothesList: Clothes[];
-  puton: Function;
-  onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
   return (
-    <FilterClothesItemList
-      clothesList={clothesList}
-      stateList={['Dry']}
-      puton={puton}
-      putoff={() => {}}
-      wash={() => {}}
-      store={() => {}}
-      onDelete={onDelete}
-    />
+    <FilterClothesItemList stateList={['Dry']} onLongPress={onLongPress} />
   );
 };
 export default ClosetClothesItemList;

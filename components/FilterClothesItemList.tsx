@@ -1,67 +1,58 @@
-import { FlatList, Text } from "react-native";
-import React from 'react';
+import React, { useContext } from 'react';
 import {Clothes} from '../models/Clothes.tsx';
 import OnClothesItem from './OnClothesItem.tsx';
 import OffClothesItem from './OffClothesItem.tsx';
 import WetClothesItem from './WetClothesItem.tsx';
 import DryClothesItem from './DryClothesItem.tsx';
-const renderItem = ({
-  item,
-  puton,
-  putoff,
-  wash,
-  store,
-  onDelete,
+import DirtyClothesItem from './DirtyClothesItem.tsx';
+import { ClothesContext } from '../contexts/ClothesContext.ts';
+const FilterClothesItem = ({
+  clothes,
+  onLongPress,
   stateList,
 }: {
-  item: Clothes;
-  puton: Function;
-  putoff: Function;
-  wash: Function;
-  store: Function;
-  onDelete: Function;
+  clothes: Clothes;
+  onLongPress: (id: number) => void;
   stateList: string[];
 }) => {
-  return stateList.some(state => state === item.state) ? (
-      item.state === 'On' ? (<OnClothesItem clothes={item} putoff={putoff} wash={wash} onDelete={onDelete}/>)
-        : item.state === 'Off' ? (<OffClothesItem clothes={item} puton={puton} wash={wash} onDelete={onDelete}/>)
-        : item.state === 'Wet' ? (<WetClothesItem clothes={item} store={store} onDelete={onDelete}/>)
-        : item.state === 'Dry' ? (<DryClothesItem clothes={item} puton={puton} onDelete={onDelete}/>)
-            :(<Text>hello world</Text>))
-    :(<></>);
+  if (!stateList.some(state => state === clothes.state)) {
+    return <></>;
+  }
+
+  switch (clothes.state) {
+    case 'On':
+      return <OnClothesItem clothes={clothes} onLongPress={onLongPress} />;
+    case 'Off':
+      return <OffClothesItem clothes={clothes} onLongPress={onLongPress} />;
+    case 'Wet':
+      return <WetClothesItem clothes={clothes} onLongPress={onLongPress} />;
+    case 'Dry':
+      return <DryClothesItem clothes={clothes} onLongPress={onLongPress} />;
+    case 'Dirty':
+      return <DirtyClothesItem clothes={clothes} onLongPress={onLongPress} />;
+    default:
+      return <></>;
+  }
 };
 const FilterClothesItemList = ({
-  clothesList,
   stateList,
-  puton,
-  putoff,
-  wash,
-  store,
-  onDelete,
+  onLongPress,
 }: {
-  clothesList: Clothes[];
   stateList: string[];
-  puton: Function;
-  putoff: Function;
-  wash: Function;
-  store: Function;
-  onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
+  const {clothesList} = useContext(ClothesContext);
   return (
-    <FlatList
-      data={clothesList}
-      renderItem={({item}) => {
-        return renderItem({
-          item,
-          puton,
-          putoff,
-          wash,
-          store,
-          onDelete,
-          stateList,
-        });
-      }}
-    />
+    <>
+      {clothesList.map((clothes: Clothes, index: number) => (
+        <FilterClothesItem
+          key={index}
+          clothes={clothes}
+          onLongPress={onLongPress}
+          stateList={stateList}
+        />
+      ))}
+    </>
   );
 };
 export default FilterClothesItemList;

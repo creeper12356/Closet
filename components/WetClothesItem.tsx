@@ -1,36 +1,41 @@
 import { Clothes } from "../models/Clothes.tsx";
-import { Button, Text, TouchableOpacity } from "react-native";
-import ClothesItemContent from "./ClothesItemContent.tsx";
+import { Text, View } from "react-native";
+import ClothesItemContent from './ClothesItemContent.tsx';
+import OperateButton from './OperateButton.tsx';
+import React from 'react';
+import ClothesItemContainer from './ClothesItemContainer.tsx';
 const WetClothesItem = ({
   clothes,
-  store,
-  onDelete,
+  onLongPress,
 }: {
   clothes: Clothes;
-  store: Function;
-  onDelete: Function;
+  onLongPress: (id: number) => void;
 }) => {
-  // @ts-ignore
   return (
-    <TouchableOpacity
-      style={{
-        backgroundColor: 'steelblue',
-        borderColor: 'white',
-        borderBottomWidth: 1,
-        flexDirection: 'row',
-      }}
-    >
-      <ClothesItemContent clothes={clothes} onDelete={onDelete}/>
-      <Button
-        title="store"
-        onPress={() => {
-          store(clothes.id);
-        }}
-      />
-      <Text>{`Washed on ${new Date(
-        clothes.lastTimeStamp,
-      ).toDateString()}`}</Text>
-    </TouchableOpacity>
+    <ClothesItemContainer
+      backgroundColor="steelblue"
+      onLongPress={() => {
+        onLongPress(clothes.id);
+      }}>
+      <ClothesItemContent clothes={clothes} />
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <OperateButton type="store" clothesId={clothes.id} />
+      </View>
+      <Text
+        style={{
+          textAlignVertical: 'center',
+        }}>
+        {`Washed at 
+        ${new Date(clothes.lastTimeStamp).toLocaleDateString()} 
+        ${new Date(clothes.lastTimeStamp).toLocaleTimeString()}`}
+      </Text>
+    </ClothesItemContainer>
   );
 };
 export default WetClothesItem;
