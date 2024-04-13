@@ -78,7 +78,11 @@ const ClothesItemTabView = ({
           isSelected={index === 3}
         />
       </View>
-      <ScrollView style={{height: '80%'}}>
+      <ScrollView
+        style={{
+          height: '72%',
+          marginTop: 2,
+        }}>
         {index === 0 ? (
           <BodySideClothesItemList onLongPress={onLongPress} />
         ) : index === 1 ? (

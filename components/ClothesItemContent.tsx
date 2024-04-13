@@ -21,7 +21,7 @@ const ClothesItemContent = ({clothes}: {clothes: Clothes}) => {
       </View>
       <View style={{flexDirection: 'row'}}>
         {clothes.tags?.map((tag, index) => (
-          <Tag closable key={index} style={{marginRight: 5}}>
+          <Tag key={index} style={{marginRight: 5}}>
             {tag}
           </Tag>
         ))}

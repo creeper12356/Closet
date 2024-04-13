@@ -90,6 +90,18 @@ function App(): React.JSX.Element {
               Clear Clothes
             </ThinkTwiceButton>
           </View>
+          <SearchBar
+            placeholder="Search"
+            value={searchText}
+            onChange={(text: string) => {
+              setSearchText(text);
+            }}
+            showCancelButton
+            cancelText={'Clear'}
+            onCancel={() => {
+              setSearchText('');
+            }}
+          />
 
           <AddClothesForm
             isVisible={isAddClothesFormVisible}
@@ -117,18 +129,7 @@ function App(): React.JSX.Element {
               );
             }}
           />
-          <SearchBar
-            placeholder="Search"
-            value={searchText}
-            onChange={(text: string) => {
-              setSearchText(text);
-            }}
-            showCancelButton
-            cancelText={'Clear'}
-            onCancel={() => {
-              setSearchText('');
-            }}
-          />
+
           <ClothesItemTabView onLongPress={editClothes} />
         </View>
       </ClothesContext.Provider>
