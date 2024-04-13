@@ -22,7 +22,14 @@ export const saveClothes = async (
 ) => {
   try {
     console.log(JSON.stringify(clothesList));
-    await AsyncStorage.setItem('clothes', JSON.stringify(clothesList));
+    await AsyncStorage.setItem(
+      'clothes',
+      JSON.stringify(
+        clothesList.map((clothes: Clothes) => {
+          return {...clothes, isVisible: true};
+        }),
+      ),
+    );
   } catch (error) {
     console.error(`saveClothes error: ${error}.`);
   }

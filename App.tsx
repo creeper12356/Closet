@@ -41,7 +41,11 @@ function App(): React.JSX.Element {
     console.log(searchText);
     setClothesList(
       clothesList.map(clothes => {
-        return {...clothes, isVisible: clothes.name.includes(searchText)};
+        return {
+          ...clothes,
+          isVisible:
+            searchText === '' ? true : clothes.name.includes(searchText),
+        };
       }),
     );
   }, [searchText]);
@@ -72,6 +76,7 @@ function App(): React.JSX.Element {
                 backgroundColor: 'green',
               }}
               onPress={() => {
+                setSearchText('');
                 setAddClothesFormVisible(true);
               }}>
               Add Clothes
