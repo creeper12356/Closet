@@ -1,5 +1,5 @@
 import React from 'react';
-import {Clothes} from '../models/Clothes';
+import {Clothes} from '../models/Clothes.ts';
 
 export const ClothesContext = React.createContext<{
   clothesList: Clothes[];

@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Clothes} from '../models/Clothes.tsx';
+import {Clothes} from '../models/Clothes.ts';
 import React from 'react';
-import {AddClothesFormData} from '../models/AddClothesFormData.tsx';
+import {AddClothesFormData} from '../models/AddClothesFormData.ts';
 export const restoreClothes = async (
   clothesList: Clothes[],
   setClothesList: React.Dispatch<React.SetStateAction<Clothes[]>>,
@@ -133,6 +133,8 @@ export const createClothes = (
     firstPutOnTimeStamp: 0,
     wetCycle: data.wetCycle,
     lastTimeStamp: 0,
+    tags: data.name.split(' ').filter((tag: string) => tag !== ''),
+    isVisible: true,
   };
-  setClothesList([...clothesList, newClothes]);
+  setClothesList([newClothes, ...clothesList]);
 };

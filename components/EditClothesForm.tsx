@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, Text, TextInput, View } from 'react-native';
-import {AddClothesFormData} from '../models/AddClothesFormData.tsx';
-import { Clothes } from "../models/Clothes.tsx";
+import {AddClothesFormData} from '../models/AddClothesFormData.ts';
+import { Clothes } from '../models/Clothes.ts';
 
 const EditClothesForm = ({
   isVisible,
@@ -26,6 +26,7 @@ const EditClothesForm = ({
       name: formData.name,
       onCycle: formData.onCycle,
       wetCycle: formData.wetCycle,
+      tags: formData.name.split(' ').filter((tag: string) => tag !== ''),
     });
     onClose();
   };

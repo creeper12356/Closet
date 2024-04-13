@@ -1,4 +1,4 @@
-import { Clothes } from '../models/Clothes.tsx';
+import { Clothes } from '../models/Clothes.ts';
 import { GestureResponderEvent, View } from "react-native";
 import ClothesItemContent from './ClothesItemContent.tsx';
 import OperateButton from './OperateButton.tsx';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Modal, Text, TextInput, View} from 'react-native';
 import {Button} from '@ant-design/react-native';
-import {AddClothesFormData} from '../models/AddClothesFormData.tsx';
+import {AddClothesFormData} from '../models/AddClothesFormData.ts';
 
 const AddClothesForm = ({
   isVisible,
