@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useContext } from "react";
 import BodySideClothesItemList from './BodySideClothesItemList.tsx';
-import {Clothes} from '../models/Clothes.tsx';
+import {Clothes} from '../models/Clothes.ts';
 import LaundryClothesItemList from './LaundryClothesItemList.tsx';
 import ClosetClothesItemList from './ClosetClothesItemList.tsx';
 import TabButton from './TabButton.tsx';
 import HamperClothesItemList from './HamperClothesItemList.tsx';
 import { ScrollView, View } from 'react-native';
+import { ClothesContext } from "../contexts/ClothesContext.ts";
 
 const ClothesItemTabView = ({
-  clothesList,
   onLongPress,
 }: {
-  clothesList: Clothes[];
   onLongPress: (id: number) => void;
 }) => {
   const [index, setIndex] = React.useState(0);
+  const {clothesList, setClothesList} = useContext(ClothesContext);
   return (
     <>
       <View
@@ -78,7 +78,11 @@ const ClothesItemTabView = ({
           isSelected={index === 3}
         />
       </View>
-      <ScrollView style={{height: '80%'}}>
+      <ScrollView
+        style={{
+          height: '72%',
+          marginTop: 2,
+        }}>
         {index === 0 ? (
           <BodySideClothesItemList onLongPress={onLongPress} />
         ) : index === 1 ? (

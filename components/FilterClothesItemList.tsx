@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {Clothes} from '../models/Clothes.tsx';
+import {Clothes} from '../models/Clothes.ts';
 import OnClothesItem from './OnClothesItem.tsx';
 import OffClothesItem from './OffClothesItem.tsx';
 import WetClothesItem from './WetClothesItem.tsx';
@@ -15,7 +15,7 @@ const FilterClothesItem = ({
   onLongPress: (id: number) => void;
   stateList: string[];
 }) => {
-  if (!stateList.some(state => state === clothes.state)) {
+  if (!stateList.some(state => state === clothes.state) || !clothes.isVisible) {
     return <></>;
   }
 

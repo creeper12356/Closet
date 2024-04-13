@@ -1,4 +1,4 @@
-import {Clothes} from '../models/Clothes.tsx';
+import {Clothes} from '../models/Clothes.ts';
 import FilterClothesItemList from './FilterClothesItemList.tsx';
 import React from 'react';
 
