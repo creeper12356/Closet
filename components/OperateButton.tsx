@@ -1,8 +1,7 @@
-import {Button} from 'react-native-paper';
-import React, { useContext } from 'react';
-import { StyleSheet } from 'react-native';
-import { ClothesContext } from '../contexts/ClothesContext.ts';
-import { drop, putoff, puton, store, wash } from '../services/clothes.ts';
+import React, {useContext} from 'react';
+import {ClothesContext} from '../contexts/ClothesContext.ts';
+import {drop, putoff, puton, store, wash} from '../services/clothes.ts';
+import {Button} from '@ant-design/react-native';
 
 /**
  * 执行衣服操作的按钮
@@ -19,8 +18,16 @@ const OperateButton = ({
 }) => {
   const {clothesList, setClothesList} = useContext(ClothesContext);
   return (
+
     <Button
-      style={styles.button}
+      type="primary"
+      size="large"
+      style={{
+        borderWidth: 2,
+        borderColor: 'white',
+        margin: 5,
+        borderRadius: 15,
+      }}
       onPress={() => {
         switch (type) {
           case 'puton': {
@@ -44,20 +51,10 @@ const OperateButton = ({
             break;
           }
         }
-      }}
-      buttonColor="steelblue"
-      textColor="white">
+      }}>
       {type}
     </Button>
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    marginVertical: 10,
-    marginHorizontal: 5,
-    borderColor: 'white',
-    borderWidth: 2,
-  },
-});
 export default OperateButton;

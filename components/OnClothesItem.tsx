@@ -1,10 +1,10 @@
 import {Clothes} from '../models/Clothes.tsx';
-import {Text, View} from 'react-native';
+import { ProgressBarAndroidComponent, Text, View } from "react-native";
 import ClothesItemContent from './ClothesItemContent.tsx';
 import OperateButton from './OperateButton.tsx';
 import ClothesItemContainer from './ClothesItemContainer.tsx';
-import {ProgressBar} from 'react-native-paper';
 import React from 'react';
+import { Progress } from "@ant-design/react-native";
 const OnClothesItem = ({
   clothes,
   onLongPress,
@@ -39,13 +39,11 @@ const OnClothesItem = ({
         ${new Date(clothes.lastTimeStamp).toLocaleTimeString()}`}
       </Text>
       {clothes.onCycle !== 0 && (
-        <ProgressBar
-          color={clothes.onTime < clothes.onCycle ? 'green' : 'red'}
-          style={{height: 5}}
-          animatedValue={
+        <Progress
+          percent={
             clothes.onTime < clothes.onCycle
-              ? clothes.onTime / clothes.onCycle
-              : 1
+              ? (clothes.onTime / clothes.onCycle) * 100
+              : 100
           }
         />
       )}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Modal, Text, TextInput, View } from 'react-native';
+import {Modal, Text, TextInput, View} from 'react-native';
+import {Button} from '@ant-design/react-native';
 import {AddClothesFormData} from '../models/AddClothesFormData.tsx';
 
 const AddClothesForm = ({
@@ -62,13 +63,23 @@ const AddClothesForm = ({
           />
           <View style={{flexDirection: 'row'}}>
             <Button
-              title="Cancel"
-              color="tomato"
+              type="primary"
+              style={{
+                backgroundColor: 'tomato',
+              }}
               onPress={() => {
                 onClose();
+              }}>
+              Cancel
+            </Button>
+            <Button
+              type="primary"
+              style={{
+                backgroundColor: 'green',
               }}
-            />
-            <Button title="Submit" color="green" onPress={handleSubmit} />
+              onPress={handleSubmit}>
+              Submit
+            </Button>
           </View>
         </View>
       </View>

@@ -1,24 +1,36 @@
-import { Button } from 'react-native-paper';
 import React from 'react';
-import { GestureResponderEvent } from "react-native";
+import { GestureResponderEvent, Text } from 'react-native';
+import { Badge, Button } from '@ant-design/react-native';
 
 const TabButton = ({
   text,
+  badgeNumber,
   onPress,
   isSelected,
 }: {
   text: string;
+  badgeNumber: number;
   onPress: (e: GestureResponderEvent) => void;
   isSelected: boolean;
 }) => {
   return (
     <Button
-      buttonColor={isSelected ? 'black' : 'steelblue'}
+      type="primary"
+      size="large"
       onPress={onPress}
-      textColor="white"
-      style={{borderRadius: 2,}}
-    >
-      {text}
+      style={{
+        backgroundColor: isSelected ? 'black' : 'steelblue',
+      }}>
+      <Badge text={badgeNumber}>
+        <Text
+          style={{
+            margin: 6,
+            fontSize: 14,
+            color: 'white',
+          }}>
+          {text}
+        </Text>
+      </Badge>
     </Button>
   );
 };
