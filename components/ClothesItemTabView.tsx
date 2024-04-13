@@ -3,10 +3,9 @@ import BodySideClothesItemList from './BodySideClothesItemList.tsx';
 import {Clothes} from '../models/Clothes.tsx';
 import LaundryClothesItemList from './LaundryClothesItemList.tsx';
 import ClosetClothesItemList from './ClosetClothesItemList.tsx';
-import {Appbar} from 'react-native-paper';
 import TabButton from './TabButton.tsx';
 import HamperClothesItemList from './HamperClothesItemList.tsx';
-import {ScrollView} from 'react-native';
+import { ScrollView, View } from "react-native";
 
 const ClothesItemTabView = ({
   clothesList,
@@ -18,11 +17,13 @@ const ClothesItemTabView = ({
   const [index, setIndex] = React.useState(0);
   return (
     <>
-      <Appbar
+      <View
         style={{
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-evenly',
+          gap: 5,
+          margin: 10,
         }}>
         <TabButton
           text="Body Side"
@@ -76,7 +77,7 @@ const ClothesItemTabView = ({
           }}
           isSelected={index === 3}
         />
-      </Appbar>
+      </View>
       <ScrollView style={{height: '80%'}}>
         {index === 0 ? (
           <BodySideClothesItemList onLongPress={onLongPress} />
