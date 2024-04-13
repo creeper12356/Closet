@@ -24,7 +24,7 @@ const TabButton = ({
       <Badge text={badgeNumber}>
         <Text
           style={{
-            margin: 6,
+            marginTop: 15,
             fontSize: 14,
             color: 'white',
           }}>
