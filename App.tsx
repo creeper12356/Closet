@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
   Text,
   useColorScheme,
   View,
@@ -15,8 +14,13 @@ import {AddClothesFormData} from './models/AddClothesFormData.tsx';
 import ClothesItemTabView from './components/ClothesItemTabView.tsx';
 import AddClothesForm from './components/AddClothesForm.tsx';
 import EditClothesForm from './components/EditClothesForm.tsx';
-import { ClothesContext } from './contexts/ClothesContext.ts';
-import { createClothes, restoreClothes, saveClothes } from './services/clothes.ts';
+import {ClothesContext} from './contexts/ClothesContext.ts';
+import {
+  createClothes,
+  restoreClothes,
+  saveClothes,
+} from './services/clothes.ts';
+import ThinkTwiceButton from './components/ThinkTwiceButton.tsx';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -70,17 +74,18 @@ function App(): React.JSX.Element {
               Add Clothes
             </Button>
             <Text>{`Total: ${clothesList.length}`}</Text>
-            <Button
-              type="primary"
+            <ThinkTwiceButton
               style={{
                 backgroundColor: 'red',
               }}
               onPress={() => {
                 AsyncStorage.removeItem('clothes');
                 setClothesList([]);
-              }}>
+              }}
+              type="primary"
+            >
               Clear Clothes
-            </Button>
+            </ThinkTwiceButton>
           </View>
 
           <AddClothesForm
@@ -118,22 +123,4 @@ function App(): React.JSX.Element {
     </SafeAreaView>
   );
 }
-StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 export default App;

@@ -34,12 +34,16 @@ const updateAndMoveToTop = (
   transform: (clothes: Clothes) => Clothes,
   id: number,
 ) => {
-  const targetClothes = clothesList.find((clothes: Clothes) => clothes.id === id);
+  const targetClothes = clothesList.find(
+    (clothes: Clothes) => clothes.id === id,
+  );
   if (targetClothes === undefined) {
     return;
   }
   const newClothes = transform(targetClothes);
-  const newClothesList = clothesList.filter((clothes: Clothes) => clothes.id !== id);
+  const newClothesList = clothesList.filter(
+    (clothes: Clothes) => clothes.id !== id,
+  );
   newClothesList.unshift(newClothes);
   setClothesList(newClothesList);
 };

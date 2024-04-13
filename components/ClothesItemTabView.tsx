@@ -5,7 +5,7 @@ import LaundryClothesItemList from './LaundryClothesItemList.tsx';
 import ClosetClothesItemList from './ClosetClothesItemList.tsx';
 import TabButton from './TabButton.tsx';
 import HamperClothesItemList from './HamperClothesItemList.tsx';
-import { ScrollView, View } from "react-native";
+import { ScrollView, View } from 'react-native';
 
 const ClothesItemTabView = ({
   clothesList,
