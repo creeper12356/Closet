@@ -1,10 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {SafeAreaView, Text, useColorScheme, View} from 'react-native';
 import {Button} from '@ant-design/react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
