@@ -17,6 +17,7 @@ import AddClothesForm from './components/AddClothesForm.tsx';
 import EditClothesForm from './components/EditClothesForm.tsx';
 import { ClothesContext } from './contexts/ClothesContext.ts';
 import { createClothes, restoreClothes, saveClothes } from './services/clothes.ts';
+import DoubleButton from "./components/DoubleButton.tsx";
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -70,7 +71,7 @@ function App(): React.JSX.Element {
               Add Clothes
             </Button>
             <Text>{`Total: ${clothesList.length}`}</Text>
-            <Button
+            <DoubleButton
               type="primary"
               style={{
                 backgroundColor: 'red',
@@ -80,7 +81,7 @@ function App(): React.JSX.Element {
                 setClothesList([]);
               }}>
               Clear Clothes
-            </Button>
+            </DoubleButton>
           </View>
 
           <AddClothesForm
