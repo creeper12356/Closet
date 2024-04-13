@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Clothes } from '../models/Clothes.tsx';
+import {Clothes} from '../models/Clothes.tsx';
 import React from 'react';
-import { AddClothesFormData } from '../models/AddClothesFormData.tsx';
+import {AddClothesFormData} from '../models/AddClothesFormData.tsx';
 export const restoreClothes = async (
   clothesList: Clothes[],
   setClothesList: React.Dispatch<React.SetStateAction<Clothes[]>>,
@@ -28,81 +28,83 @@ export const saveClothes = async (
   }
 };
 
+const updateAndMoveToTop = (
+  clothesList: Clothes[],
+  setClothesList: React.Dispatch<React.SetStateAction<Clothes[]>>,
+  transform: (clothes: Clothes) => Clothes,
+  id: number,
+) => {
+  const targetClothes = clothesList.find((clothes: Clothes) => clothes.id === id);
+  if (targetClothes === undefined) {
+    return;
+  }
+  const newClothes = transform(targetClothes);
+  const newClothesList = clothesList.filter((clothes: Clothes) => clothes.id !== id);
+  newClothesList.unshift(newClothes);
+  setClothesList(newClothesList);
+};
+const putonTransform = (clothes: Clothes) => {
+  return clothes.state === 'Dry'
+    ? {
+        ...clothes,
+        firstPutOnTimeStamp: Date.now(),
+        state: 'On',
+        lastTimeStamp: Date.now(),
+      }
+    : {...clothes, state: 'On', lastTimeStamp: Date.now()};
+};
+const putoffTransform = (clothes: Clothes) => {
+  return {
+    ...clothes,
+    state: 'Off',
+    onTime: clothes.onTime + Date.now() - clothes.lastTimeStamp,
+  };
+};
+const washTransform = (clothes: Clothes) => {
+  return {...clothes, state: 'Wet', lastTimeStamp: Date.now()};
+};
+const storeTransform = (clothes: Clothes) => {
+  return {...clothes, state: 'Dry', lastTimeStamp: 0, onTime: 0};
+};
+
+const dropTransform = (clothes: Clothes) => {
+  return {...clothes, state: 'Dirty', lastTimeStamp: Date.now()};
+};
+
 export const puton = (
   clothesList: Clothes[],
   setClothesList: React.Dispatch<React.SetStateAction<Clothes[]>>,
   id: number,
 ) => {
-  setClothesList(
-    clothesList.map((clothes: Clothes) =>
-      clothes.id === id
-        ? clothes.state === 'Dry'
-          ? {
-              ...clothes,
-              firstPutOnTimeStamp: Date.now(),
-              state: 'On',
-              lastTimeStamp: Date.now(),
-            }
-          : {...clothes, state: 'On', lastTimeStamp: Date.now()}
-        : clothes,
-    ),
-  );
+  updateAndMoveToTop(clothesList, setClothesList, putonTransform, id);
 };
 export const putoff = (
   clothesList: Clothes[],
   setClothesList: React.Dispatch<React.SetStateAction<Clothes[]>>,
   id: number,
 ) => {
-  setClothesList(
-    clothesList.map((clothes: Clothes) =>
-      clothes.id === id
-        ? {
-            ...clothes,
-            state: 'Off',
-            onTime: clothes.onTime + Date.now() - clothes.lastTimeStamp,
-          }
-        : clothes,
-    ),
-  );
+  updateAndMoveToTop(clothesList, setClothesList, putoffTransform, id);
 };
 export const wash = (
   clothesList: Clothes[],
   setClothesList: React.Dispatch<React.SetStateAction<Clothes[]>>,
   id: number,
 ) => {
-  setClothesList(
-    clothesList.map((clothes: Clothes) =>
-      clothes.id === id
-        ? {...clothes, state: 'Wet', lastTimeStamp: Date.now()}
-        : clothes,
-    ),
-  );
+  updateAndMoveToTop(clothesList, setClothesList, washTransform, id);
 };
 export const store = (
   clothesList: Clothes[],
   setClothesList: React.Dispatch<React.SetStateAction<Clothes[]>>,
   id: number,
 ) => {
-  setClothesList(
-    clothesList.map((clothes: Clothes) =>
-      clothes.id === id
-        ? {...clothes, state: 'Dry', lastTimeStamp: 0, onTime: 0}
-        : clothes,
-    ),
-  );
+  updateAndMoveToTop(clothesList, setClothesList, storeTransform, id);
 };
 export const drop = (
   clothesList: Clothes[],
   setClothesList: React.Dispatch<React.SetStateAction<Clothes[]>>,
   id: number,
 ) => {
-  setClothesList(
-    clothesList.map((clothes: Clothes) =>
-      clothes.id === id
-        ? {...clothes, state: 'Dirty', lastTimeStamp: Date.now() }
-        : clothes,
-    ),
-  );
+  updateAndMoveToTop(clothesList, setClothesList, dropTransform, id);
 };
 
 export const deleteClothes = (
