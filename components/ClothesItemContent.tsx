@@ -1,19 +1,17 @@
 import {Clothes} from '../models/Clothes.tsx';
 import {Text, View} from 'react-native';
+import { deleteClothes } from "../services/clothes.ts";
+import { useContext } from "react";
+import { ClothesContext } from "../contexts/ClothesContext.ts";
 
-const ClothesItemContent = ({
-  clothes,
-  onDelete,
-}: {
-  clothes: Clothes;
-  onDelete: Function;
-}) => {
+const ClothesItemContent = ({clothes}: {clothes: Clothes}) => {
+  const {clothesList, setClothesList} = useContext(ClothesContext);
   return (
     <View style={{flexDirection: 'row'}}>
       <Text
         style={{marginRight: 20, fontSize: 35, color: 'rgb(100,0,0)'}}
         onPress={() => {
-          onDelete(clothes.id);
+          deleteClothes(clothesList, setClothesList, clothes.id);
         }}>
         ×
       </Text>

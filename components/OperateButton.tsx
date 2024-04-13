@@ -1,6 +1,8 @@
 import {Button} from 'react-native-paper';
-import React from 'react';
-import {StyleSheet} from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet } from 'react-native';
+import { ClothesContext } from '../contexts/ClothesContext.ts';
+import { drop, putoff, puton, store, wash } from '../services/clothes.ts';
 
 /**
  * 执行衣服操作的按钮
@@ -10,22 +12,41 @@ import {StyleSheet} from 'react-native';
  */
 const OperateButton = ({
   type,
-  onPress,
   clothesId,
 }: {
   type: 'puton' | 'putoff' | 'wash' | 'store' | 'drop';
-  onPress: (id: number) => void;
   clothesId: number;
 }) => {
+  const {clothesList, setClothesList} = useContext(ClothesContext);
   return (
     <Button
       style={styles.button}
       onPress={() => {
-        onPress(clothesId);
+        switch (type) {
+          case 'puton': {
+            puton(clothesList, setClothesList, clothesId);
+            break;
+          }
+          case 'putoff': {
+            putoff(clothesList, setClothesList, clothesId);
+            break;
+          }
+          case 'wash': {
+            wash(clothesList, setClothesList, clothesId);
+            break;
+          }
+          case 'store': {
+            store(clothesList, setClothesList, clothesId);
+            break;
+          }
+          case 'drop': {
+            drop(clothesList, setClothesList, clothesId);
+            break;
+          }
+        }
       }}
       buttonColor="steelblue"
-      textColor="white"
-    >
+      textColor="white">
       {type}
     </Button>
   );

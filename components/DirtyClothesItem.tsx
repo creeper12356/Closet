@@ -1,18 +1,14 @@
 import { Clothes } from '../models/Clothes.tsx';
-import { GestureResponderEvent, Text, View } from "react-native";
+import { Text, View } from 'react-native';
 import ClothesItemContent from './ClothesItemContent.tsx';
 import OperateButton from './OperateButton.tsx';
 import React from 'react';
 import ClothesItemContainer from './ClothesItemContainer.tsx';
 const DirtyClothesItem = ({
   clothes,
-  wash,
-  onDelete,
   onLongPress,
 }: {
   clothes: Clothes;
-  wash: Function;
-  onDelete: Function;
   onLongPress: (id: number) => void;
 }) => {
   return (
@@ -21,7 +17,7 @@ const DirtyClothesItem = ({
       onLongPress={() => {
         onLongPress(clothes.id);
       }}>
-      <ClothesItemContent clothes={clothes} onDelete={onDelete} />
+      <ClothesItemContent clothes={clothes} />
       <View
         style={{
           display: 'flex',
@@ -29,7 +25,7 @@ const DirtyClothesItem = ({
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-        <OperateButton type="wash" onPress={wash} clothesId={clothes.id} />
+        <OperateButton type="wash" clothesId={clothes.id} />
       </View>
       <Text
         style={{

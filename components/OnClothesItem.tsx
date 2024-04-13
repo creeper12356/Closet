@@ -1,23 +1,15 @@
 import {Clothes} from '../models/Clothes.tsx';
-import { GestureResponderEvent, Text, View } from "react-native";
+import {Text, View} from 'react-native';
 import ClothesItemContent from './ClothesItemContent.tsx';
-import React from 'react';
 import OperateButton from './OperateButton.tsx';
 import ClothesItemContainer from './ClothesItemContainer.tsx';
-import { ProgressBar } from "react-native-paper";
+import {ProgressBar} from 'react-native-paper';
+import React from 'react';
 const OnClothesItem = ({
   clothes,
-  putoff,
-  wash,
-  drop,
-  onDelete,
   onLongPress,
 }: {
   clothes: Clothes;
-  putoff: Function;
-  wash: Function;
-  drop: Function;
-  onDelete: Function;
   onLongPress: (id: number) => void;
 }) => {
   return (
@@ -26,7 +18,7 @@ const OnClothesItem = ({
       onLongPress={() => {
         onLongPress(clothes.id);
       }}>
-      <ClothesItemContent clothes={clothes} onDelete={onDelete} />
+      <ClothesItemContent clothes={clothes} />
       <View
         style={{
           display: 'flex',
@@ -34,9 +26,9 @@ const OnClothesItem = ({
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-        <OperateButton type="putoff" onPress={putoff} clothesId={clothes.id} />
-        <OperateButton type="wash" onPress={wash} clothesId={clothes.id} />
-        <OperateButton type="drop" onPress={drop} clothesId={clothes.id} />
+        <OperateButton type="putoff" clothesId={clothes.id} />
+        <OperateButton type="wash" clothesId={clothes.id} />
+        <OperateButton type="drop" clothesId={clothes.id} />
       </View>
       <Text style={{textAlignVertical: 'center'}}>
         {`On for ${Math.round(clothes.onTime / 3600000)} h`}

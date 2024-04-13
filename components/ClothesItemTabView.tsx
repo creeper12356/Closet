@@ -6,25 +6,13 @@ import ClosetClothesItemList from './ClosetClothesItemList.tsx';
 import {Appbar} from 'react-native-paper';
 import TabButton from './TabButton.tsx';
 import HamperClothesItemList from './HamperClothesItemList.tsx';
-import { GestureResponderEvent, ScrollView } from "react-native";
+import {ScrollView} from 'react-native';
 
 const ClothesItemTabView = ({
   clothesList,
-  puton,
-  putoff,
-  wash,
-  store,
-  drop,
-  onDelete,
   onLongPress,
 }: {
   clothesList: Clothes[];
-  puton: Function;
-  putoff: Function;
-  wash: Function;
-  store: Function;
-  drop: Function;
-  onDelete: Function;
   onLongPress: (id: number) => void;
 }) => {
   const [index, setIndex] = React.useState(0);
@@ -50,10 +38,8 @@ const ClothesItemTabView = ({
         />
         <TabButton
           text={`Laundry(${
-            clothesList.filter(
-              (clothes: Clothes) =>
-                clothes.state === 'Wet',
-            ).length
+            clothesList.filter((clothes: Clothes) => clothes.state === 'Wet')
+              .length
           })`}
           onPress={() => {
             setIndex(1);
@@ -62,10 +48,8 @@ const ClothesItemTabView = ({
         />
         <TabButton
           text={`Closet(${
-            clothesList.filter(
-              (clothes: Clothes) =>
-                clothes.state === 'Dry',
-            ).length
+            clothesList.filter((clothes: Clothes) => clothes.state === 'Dry')
+              .length
           })`}
           onPress={() => {
             setIndex(2);
@@ -74,10 +58,8 @@ const ClothesItemTabView = ({
         />
         <TabButton
           text={`Hamper(${
-            clothesList.filter(
-              (clothes: Clothes) =>
-                clothes.state === 'Dirty',
-            ).length
+            clothesList.filter((clothes: Clothes) => clothes.state === 'Dirty')
+              .length
           })`}
           onPress={() => {
             setIndex(3);
@@ -85,38 +67,18 @@ const ClothesItemTabView = ({
           isSelected={index === 3}
         />
       </Appbar>
-      <ScrollView style={{ height: '80%' }}>
+      <ScrollView style={{height: '80%'}}>
         {index === 0 ? (
-          <BodySideClothesItemList
-            clothesList={clothesList}
-            puton={puton}
-            putoff={putoff}
-            wash={wash}
-            drop={drop}
-            onDelete={onDelete}
-            onLongPress={onLongPress}
-          />
+          <BodySideClothesItemList onLongPress={onLongPress} />
         ) : index === 1 ? (
-          <LaundryClothesItemList
-            clothesList={clothesList}
-            store={store}
-            onDelete={onDelete}
-            onLongPress={onLongPress}
-          />
+          <LaundryClothesItemList onLongPress={onLongPress} />
         ) : index === 2 ? (
           <ClosetClothesItemList
             clothesList={clothesList}
-            puton={puton}
-            onDelete={onDelete}
             onLongPress={onLongPress}
           />
         ) : (
-          <HamperClothesItemList
-            clothesList={clothesList}
-            wash={wash}
-            onDelete={onDelete}
-            onLongPress={onLongPress}
-          />
+          <HamperClothesItemList onLongPress={onLongPress} />
         )}
       </ScrollView>
     </>

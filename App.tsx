@@ -1,19 +1,12 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
-  ScrollView,
-  StyleSheet, Text,
+  StyleSheet,
+  Text,
   useColorScheme,
   View
-} from "react-native";
-import { Button } from "react-native-paper";
+} from 'react-native';
+import { Button } from 'react-native-paper';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,7 +14,9 @@ import {Clothes} from './models/Clothes.tsx';
 import {AddClothesFormData} from './models/AddClothesFormData.tsx';
 import ClothesItemTabView from './components/ClothesItemTabView.tsx';
 import AddClothesForm from './components/AddClothesForm.tsx';
-import EditClothesForm from "./components/EditClothesForm.tsx";
+import EditClothesForm from './components/EditClothesForm.tsx';
+import { ClothesContext } from './contexts/ClothesContext.ts';
+import { createClothes, restoreClothes, saveClothes } from './services/clothes.ts';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -36,181 +31,86 @@ function App(): React.JSX.Element {
   const [editedClothesId, setEditedClothesId] = useState(0);
   useEffect(() => {
     console.log('restore');
-    restoreClothes();
+    restoreClothes(clothesList, setClothesList);
   }, []);
   useEffect(() => {
     console.log('save');
-    saveClothes();
+    saveClothes(clothesList, setClothesList);
   }, [clothesList]);
-  const restoreClothes = async () => {
-    try {
-      const jsonString: string | null = await AsyncStorage.getItem('clothes');
-      console.log(`jsonString = ${jsonString}`);
-      if (jsonString !== null) {
-        setClothesList(JSON.parse(jsonString));
-      }
-    } catch (error) {
-      console.error(`restoreClothes error: ${error}`);
-    }
-  };
-  const saveClothes = async () => {
-    try {
-      console.log(JSON.stringify(clothesList));
-      await AsyncStorage.setItem('clothes', JSON.stringify(clothesList));
-    } catch (error) {
-      console.error(`saveClothes error: ${error}.`);
-    }
-  };
-
-  const puton = (id: number) => {
-    setClothesList(
-      clothesList.map((clothes: Clothes) =>
-        clothes.id === id
-          ? clothes.state === 'Dry'
-            ? {
-                ...clothes,
-                firstPutOnTimeStamp: Date.now(),
-                state: 'On',
-                lastTimeStamp: Date.now(),
-              }
-            : {...clothes, state: 'On', lastTimeStamp: Date.now()}
-          : clothes,
-      ),
-    );
-  };
-  const putoff = (id: number) => {
-    setClothesList(
-      clothesList.map((clothes: Clothes) =>
-        clothes.id === id
-          ? {
-              ...clothes,
-              state: 'Off',
-              onTime: clothes.onTime + Date.now() - clothes.lastTimeStamp,
-            }
-          : clothes,
-      ),
-    );
-  };
-  const wash = (id: number) => {
-    setClothesList(
-      clothesList.map((clothes: Clothes) =>
-        clothes.id === id
-          ? {...clothes, state: 'Wet', lastTimeStamp: Date.now()}
-          : clothes,
-      ),
-    );
-  };
-  const store = (id: number) => {
-    setClothesList(
-      clothesList.map((clothes: Clothes) =>
-        clothes.id === id
-          ? {...clothes, state: 'Dry', lastTimeStamp: 0, onTime: 0}
-          : clothes,
-      ),
-    );
-  };
-  const drop = (id: number) => {
-    setClothesList(
-      clothesList.map((clothes: Clothes) =>
-        clothes.id === id
-          ? {...clothes, state: 'Dirty', lastTimeStamp: Date.now() }
-          : clothes,
-      ),
-    );
-  };
-
-  const deleteClothes = (id: number) => {
-    setClothesList(clothesList.filter(clothes => clothes.id !== id));
-  };
 
   const editClothes = (id: number) => {
     console.log(new Date(id).toLocaleDateString());
     setEditedClothesId(id);
     setEditClothesFormVisible(true);
   };
-  const createClothes = (data: AddClothesFormData) => {
-    const newClothes: Clothes = {
-      id: Date.now(),
-      name: data.name,
-      state: 'Dry',
-      onCycle: data.onCycle,
-      onTime: 0,
-      firstPutOnTimeStamp: 0,
-      wetCycle: data.wetCycle,
-      lastTimeStamp: 0,
-    };
-    setClothesList([...clothesList, newClothes]);
-  };
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <View
-        style={{
-          backgroundColor: isDarkMode ? Colors.black : Colors.white,
-        }}>
+      <ClothesContext.Provider value={{clothesList, setClothesList}}>
         <View
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-evenly',
-            marginVertical: 20,
+            backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Button
-            buttonColor="green"
-            textColor="white"
-            onPress={() => {
-              setAddClothesFormVisible(true);
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-evenly',
+              marginVertical: 20,
             }}>
-            Add Clothes
-          </Button>
-          <Text>{`Total: ${clothesList.length}`}</Text>
-          <Button
-            buttonColor="red"
-            textColor="white"
-            onPress={() => {
-              AsyncStorage.removeItem('clothes');
-              setClothesList([]);
-            }}>
-            Clear Clothes
-          </Button>
-        </View>
+            <Button
+              buttonColor="green"
+              textColor="white"
+              onPress={() => {
+                setAddClothesFormVisible(true);
+              }}>
+              Add Clothes
+            </Button>
+            <Text>{`Total: ${clothesList.length}`}</Text>
+            <Button
+              buttonColor="red"
+              textColor="white"
+              onPress={() => {
+                AsyncStorage.removeItem('clothes');
+                setClothesList([]);
+              }}>
+              Clear Clothes
+            </Button>
+          </View>
 
-        <AddClothesForm
-          isVisible={isAddClothesFormVisible}
-          onClose={() => {
-            setAddClothesFormVisible(false);
-          }}
-          onSubmit={(data: AddClothesFormData) => {
-            createClothes(data);
-          }}
-        />
-        <EditClothesForm
-          isVisible={isEditClothesFormVisible}
-          //@ts-ignore
-          clothes={clothesList.find(clothes => clothes.id === editedClothesId)}
-          onClose={() => {
-            setEditClothesFormVisible(false);
-          }}
-          onSubmit={editedClothes => {
-            setClothesList(
-              clothesList.map(clothes =>
-                clothes.id === editedClothes.id ? editedClothes : clothes,
-              ),
-            );
-          }}
-        />
-        <ClothesItemTabView
-          clothesList={clothesList}
-          puton={puton}
-          putoff={putoff}
-          wash={wash}
-          store={store}
-          drop={drop}
-          onDelete={deleteClothes}
-          onLongPress={editClothes}
-        />
-      </View>
+          <AddClothesForm
+            isVisible={isAddClothesFormVisible}
+            onClose={() => {
+              setAddClothesFormVisible(false);
+            }}
+            onSubmit={(data: AddClothesFormData) => {
+              createClothes(clothesList, setClothesList, data);
+            }}
+          />
+          <EditClothesForm
+            isVisible={isEditClothesFormVisible}
+            //@ts-ignore
+            clothes={clothesList.find(
+              clothes => clothes.id === editedClothesId,
+            )}
+            onClose={() => {
+              setEditClothesFormVisible(false);
+            }}
+            onSubmit={editedClothes => {
+              setClothesList(
+                clothesList.map(clothes =>
+                  clothes.id === editedClothes.id ? editedClothes : clothes,
+                ),
+              );
+            }}
+          />
+          <ClothesItemTabView
+            clothesList={clothesList}
+            onLongPress={editClothes}
+          />
+        </View>
+      </ClothesContext.Provider>
     </SafeAreaView>
   );
 }

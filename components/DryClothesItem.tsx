@@ -6,13 +6,9 @@ import React from 'react';
 import ClothesItemContainer from './ClothesItemContainer.tsx';
 const DryClothesItem = ({
   clothes,
-  puton,
-  onDelete,
   onLongPress,
 }: {
   clothes: Clothes;
-  puton: Function;
-  onDelete: Function;
   onLongPress: (id: number) => void;
 }) => {
   return (
@@ -21,7 +17,7 @@ const DryClothesItem = ({
       onLongPress={() => {
         onLongPress(clothes.id);
       }}>
-      <ClothesItemContent clothes={clothes} onDelete={onDelete}/>
+      <ClothesItemContent clothes={clothes} />
       <View
         style={{
           display: 'flex',
@@ -29,7 +25,7 @@ const DryClothesItem = ({
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-        <OperateButton type="puton" onPress={puton} clothesId={clothes.id} />
+        <OperateButton type="puton" clothesId={clothes.id} />
       </View>
     </ClothesItemContainer>
   );
