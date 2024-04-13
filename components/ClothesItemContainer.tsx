@@ -1,4 +1,4 @@
-import { GestureResponderEvent, TouchableOpacity } from "react-native";
+import { GestureResponderEvent, TouchableOpacity } from 'react-native';
 import React, { ReactNode } from 'react';
 
 const ClothesItemContainer = ({

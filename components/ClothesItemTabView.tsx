@@ -25,42 +25,52 @@ const ClothesItemTabView = ({
           justifyContent: 'space-evenly',
         }}>
         <TabButton
-          text={`Body Side(${
+          text="Body Side"
+          badgeNumber={
             clothesList.filter(
               (clothes: Clothes) =>
                 clothes.state === 'On' || clothes.state === 'Off',
             ).length
-          })`}
+          }
           onPress={() => {
             setIndex(0);
           }}
           isSelected={index === 0}
         />
         <TabButton
-          text={`Laundry(${
-            clothesList.filter((clothes: Clothes) => clothes.state === 'Wet')
-              .length
-          })`}
+          text="Laundry"
+          badgeNumber={
+            clothesList.filter(
+              (clothes: Clothes) =>
+                clothes.state === 'Wet',
+            ).length
+          }
           onPress={() => {
             setIndex(1);
           }}
           isSelected={index === 1}
         />
         <TabButton
-          text={`Closet(${
-            clothesList.filter((clothes: Clothes) => clothes.state === 'Dry')
-              .length
-          })`}
+          text="Closet"
+          badgeNumber={
+            clothesList.filter(
+              (clothes: Clothes) =>
+                clothes.state === 'Dry',
+            ).length
+          }
           onPress={() => {
             setIndex(2);
           }}
           isSelected={index === 2}
         />
         <TabButton
-          text={`Hamper(${
-            clothesList.filter((clothes: Clothes) => clothes.state === 'Dirty')
-              .length
-          })`}
+          text="Hamper"
+          badgeNumber={
+            clothesList.filter(
+              (clothes: Clothes) =>
+                clothes.state === 'Dirty',
+            ).length
+          }
           onPress={() => {
             setIndex(3);
           }}
@@ -73,10 +83,7 @@ const ClothesItemTabView = ({
         ) : index === 1 ? (
           <LaundryClothesItemList onLongPress={onLongPress} />
         ) : index === 2 ? (
-          <ClosetClothesItemList
-            clothesList={clothesList}
-            onLongPress={onLongPress}
-          />
+          <ClosetClothesItemList onLongPress={onLongPress} />
         ) : (
           <HamperClothesItemList onLongPress={onLongPress} />
         )}

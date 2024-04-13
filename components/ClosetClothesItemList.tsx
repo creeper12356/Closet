@@ -5,7 +5,6 @@ import React from 'react';
 const ClosetClothesItemList = ({
   onLongPress,
 }: {
-  clothesList: Clothes[];
   onLongPress: (id: number) => void;
 }) => {
   return (

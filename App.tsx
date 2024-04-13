@@ -4,9 +4,9 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  View
+  View,
 } from 'react-native';
-import { Button } from 'react-native-paper';
+import {Button} from '@ant-design/react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -60,8 +60,10 @@ function App(): React.JSX.Element {
               marginVertical: 20,
             }}>
             <Button
-              buttonColor="green"
-              textColor="white"
+              type="primary"
+              style={{
+                backgroundColor: 'green',
+              }}
               onPress={() => {
                 setAddClothesFormVisible(true);
               }}>
@@ -69,8 +71,10 @@ function App(): React.JSX.Element {
             </Button>
             <Text>{`Total: ${clothesList.length}`}</Text>
             <Button
-              buttonColor="red"
-              textColor="white"
+              type="primary"
+              style={{
+                backgroundColor: 'red',
+              }}
               onPress={() => {
                 AsyncStorage.removeItem('clothes');
                 setClothesList([]);
