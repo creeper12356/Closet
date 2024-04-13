@@ -1,7 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Clothes } from "../models/Clothes.tsx";
-import React from "react";
-import { AddClothesFormData } from "../models/AddClothesFormData.tsx";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Clothes } from '../models/Clothes.tsx';
+import React from 'react';
+import { AddClothesFormData } from '../models/AddClothesFormData.tsx';
 export const restoreClothes = async (
   clothesList: Clothes[],
   setClothesList: React.Dispatch<React.SetStateAction<Clothes[]>>,
@@ -38,11 +38,11 @@ export const puton = (
       clothes.id === id
         ? clothes.state === 'Dry'
           ? {
-            ...clothes,
-            firstPutOnTimeStamp: Date.now(),
-            state: 'On',
-            lastTimeStamp: Date.now(),
-          }
+              ...clothes,
+              firstPutOnTimeStamp: Date.now(),
+              state: 'On',
+              lastTimeStamp: Date.now(),
+            }
           : {...clothes, state: 'On', lastTimeStamp: Date.now()}
         : clothes,
     ),
@@ -57,10 +57,10 @@ export const putoff = (
     clothesList.map((clothes: Clothes) =>
       clothes.id === id
         ? {
-          ...clothes,
-          state: 'Off',
-          onTime: clothes.onTime + Date.now() - clothes.lastTimeStamp,
-        }
+            ...clothes,
+            state: 'Off',
+            onTime: clothes.onTime + Date.now() - clothes.lastTimeStamp,
+          }
         : clothes,
     ),
   );
